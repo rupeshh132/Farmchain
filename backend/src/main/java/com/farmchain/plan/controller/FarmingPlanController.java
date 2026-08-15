@@ -16,6 +16,8 @@ import java.util.UUID;
 public class FarmingPlanController {
 
     private final FarmingPlanService planService;
+    private final com.farmchain.auth.repository.UserRepository userRepository;
+    private final com.farmchain.plan.service.YieldPredictionService yieldPredictionService;
 
     @PostMapping("/farms/{farmId}/plans")
     public ResponseEntity<ApiResponse<FarmingPlanDto>> createPlan(@PathVariable UUID farmId, @RequestBody PlanCreateRequest request) {
@@ -33,5 +35,14 @@ public class FarmingPlanController {
     public ResponseEntity<ApiResponse<Void>> completeTask(@PathVariable UUID taskId) {
         planService.markTaskComplete(taskId);
         return ResponseEntity.ok(ApiResponse.ok(null));
+    }
+
+    @GetMapping("/plans/{planId}/yield")
+    public ResponseEntity<ApiResponse<com.farmchain.plan.dto.YieldPredictionDto>> getYieldPrediction(
+            @PathVariable UUID planId,
+            @org.springframework.security.core.annotation.AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails) {
+        
+        com.farmchain.plan.dto.YieldPredictionDto dto = yieldPredictionService.getOrPredictYield(planId);
+        return ResponseEntity.ok(ApiResponse.ok(dto));
     }
 }

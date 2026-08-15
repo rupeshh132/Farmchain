@@ -1,6 +1,7 @@
 import random
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 import time
 
 app = FastAPI(title="FarmChain ML Service", version="1.0.0")
@@ -53,6 +54,40 @@ async def predict_disease(file: UploadFile = File(...)):
         "prediction": outcome["disease"],
         "confidence": confidence,
         "recommended_action": outcome["action"]
+    }
+
+class YieldRequest(BaseModel):
+    cropName: str
+    areaHectares: float
+
+@app.post("/predict/yield")
+async def predict_yield(req: YieldRequest):
+    time.sleep(1) # simulate model inference
+    
+    # Base yields per hectare (mock data)
+    base_yields = {
+        "Wheat": 3500,
+        "Rice": 4000,
+        "Sugarcane": 70000,
+        "Tomato": 25000,
+        "Potato": 22000
+    }
+    
+    # Default to 3000 if not found
+    base = base_yields.get(req.cropName, 3000)
+    
+    # Scale by area
+    total_base = base * req.areaHectares
+    
+    # Add random variance for min/max
+    min_kg = round(total_base * random.uniform(0.85, 0.95))
+    max_kg = round(total_base * random.uniform(1.05, 1.15))
+    
+    return {
+        "success": True,
+        "predicted_min_kg": min_kg,
+        "predicted_max_kg": max_kg,
+        "model_version": "mock-v1"
     }
 
 if __name__ == "__main__":

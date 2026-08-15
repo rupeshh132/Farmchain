@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { CloudRain, TriangleAlert, Sprout, TrendingUp, IndianRupee, Wind, Droplets, CheckCircle2 } from 'lucide-react';
+import { CloudRain, TriangleAlert, Sprout, TrendingUp, IndianRupee, Wind, Droplets, CheckCircle2, Package, ShieldCheck, Sparkles } from 'lucide-react';
 import { getFarms, type Farm } from '../api/farm';
 import { getFarmWeather, type DashboardWeatherResponse } from '../api/weather';
-import { getActivePlan, completeTask, type FarmingPlan } from '../api/plan';
+import { getActivePlan, completeTask, getYieldPrediction, type FarmingPlan, type YieldPredictionDto } from '../api/plan';
 import { getExpenses, addExpense, logHarvest, type Expense } from '../api/finance';
 import { getLatestMarketPrice, type MarketPrice } from '../api/market';
 import { getFarmBatches, type ProduceBatch } from '../api/trace';
@@ -21,6 +21,7 @@ export const DashboardPage: React.FC = () => {
   const [activePlan, setActivePlan] = useState<FarmingPlan | null>(null);
   const [marketPrice, setMarketPrice] = useState<MarketPrice | null>(null);
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [yieldPrediction, setYieldPrediction] = useState<YieldPredictionDto | null>(null);
   const [batches, setBatches] = useState<ProduceBatch[]>([]);
   const [loading, setLoading] = useState(true);
   const [showExpenseModal, setShowExpenseModal] = useState(false);
@@ -43,6 +44,10 @@ export const DashboardPage: React.FC = () => {
             if (plan) {
               const exp = await getExpenses(plan.id);
               setExpenses(exp);
+              try {
+                const yp = await getYieldPrediction(plan.id);
+                setYieldPrediction(yp);
+              } catch(e) {}
               try {
                 if (fetchedFarms[0].state) {
                   const mPrice = await getLatestMarketPrice(plan.cropId, fetchedFarms[0].state);
@@ -287,6 +292,12 @@ export const DashboardPage: React.FC = () => {
                   <div className="flex justify-between items-end pt-2 border-t border-border">
                     <span className="font-body text-soil-900 font-medium">Est. Return</span>
                     <span className="font-mono text-leaf-700 font-medium">₹38,000</span>
+                  </div>
+                  <div className="flex justify-between items-end pt-2 border-t border-border mt-2">
+                    <span className="font-body text-soil-900 font-medium flex items-center gap-1">Est. Yield <Sparkles size={12} className="text-primary"/></span>
+                    <span className="font-mono text-leaf-700 font-medium">
+                      {yieldPrediction ? `${yieldPrediction.predictedMinKg.toLocaleString('en-IN')} - ${yieldPrediction.predictedMaxKg.toLocaleString('en-IN')} kg` : '...'}
+                    </span>
                   </div>
                 </div>
               </div>

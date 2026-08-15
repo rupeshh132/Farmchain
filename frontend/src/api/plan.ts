@@ -19,6 +19,15 @@ export interface FarmingPlan {
     tasks: FarmingTask[];
 }
 
+export interface YieldPredictionDto {
+  id: string;
+  planId: string;
+  predictedMinKg: number;
+  predictedMaxKg: number;
+  modelVersion: string;
+  predictedAt: string;
+}
+
 const getHeaders = () => {
     const token = localStorage.getItem('token');
     return {
@@ -54,4 +63,13 @@ export const completeTask = async (taskId: string): Promise<void> => {
     });
     const result = await response.json();
     if (!result.success) throw new Error(result.error?.message || 'Failed to complete task');
+};
+
+export const getYieldPrediction = async (planId: string): Promise<YieldPredictionDto> => {
+    const response = await fetch(`${API_BASE}/plans/${planId}/yield`, {
+        headers: getHeaders()
+    });
+    const result = await response.json();
+    if (!result.success) throw new Error(result.error?.message || 'Failed to fetch yield prediction');
+    return result.data;
 };
