@@ -27,7 +27,14 @@ public class Notification {
     private User user;
 
     @Column(nullable = false, length = 50)
-    private String type; // e.g. WEATHER_ALERT, TASK_REMINDER, SYSTEM
+    private String type; // e.g. WEATHER_ALERT, TASK_DUE, MARKET_PRICE, SYSTEM
+
+    @Column(nullable = false, length = 20)
+    @Builder.Default
+    private String priority = "MEDIUM";
+
+    @Column(nullable = false)
+    private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String message;

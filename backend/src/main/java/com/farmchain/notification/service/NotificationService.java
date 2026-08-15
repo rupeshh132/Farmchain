@@ -25,7 +25,9 @@ public class NotificationService {
         Notification notification = Notification.builder()
                 .user(user)
                 .type(type)
+                .title(type)
                 .message(message)
+                .priority("MEDIUM")
                 .build();
                 
         notificationRepository.save(notification);
