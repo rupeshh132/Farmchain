@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Camera, Upload, AlertCircle, CheckCircle, Activity, Stethoscope, ChevronRight } from 'lucide-react';
+import { Camera, Upload, AlertCircle, CheckCircle, Activity, Stethoscope } from 'lucide-react';
 import { scanDisease, getDiseaseScans, type DiseaseScan } from '../api/disease';
 import { getFarms } from '../api/farm';
-import { getActivePlan, type FarmingPlan } from '../api/plan';
+import { getActivePlan } from '../api/plan';
 import { Button } from '../components/ui/Button';
 
 export default function DiseaseDetectionPage() {
@@ -26,10 +26,12 @@ export default function DiseaseDetectionPage() {
           setFarmId(farms[0].id);
           const scansData = await getDiseaseScans(farms[0].id);
           setScans(scansData);
-
           try {
             const plan = await getActivePlan(farms[0].id);
-            setCropId(plan.cropId);
+            if (plan) {
+                setCropId(plan.cropId);
+            }
+
           } catch (e) {
             // No active plan
           }

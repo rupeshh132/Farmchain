@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getTraceByQrCode, type TraceResponse } from '../api/trace';
-import { ShieldCheck, MapPin, Package, Calendar, Sprout, ArrowLeft } from 'lucide-react';
+import { ShieldCheck, MapPin, Package, Sprout, ArrowLeft } from 'lucide-react';
 
 import bgImage from '../assets/images/hero-field-morning.jpg';
 

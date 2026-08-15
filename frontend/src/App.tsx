@@ -3,7 +3,7 @@ import { LandingPage } from './pages/LandingPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { FarmOnboardingPage } from './pages/FarmOnboardingPage';
 import { CalculatorPage } from './pages/CalculatorPage';
-import RecommendationsPage from './pages/RecommendationsPage';
+import { RecommendationsPage } from './pages/RecommendationsPage';
 import TracePage from './pages/TracePage';
 import DiseaseDetectionPage from './pages/DiseaseDetectionPage';
 
