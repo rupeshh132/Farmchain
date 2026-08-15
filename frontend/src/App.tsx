@@ -6,6 +6,7 @@ import { CalculatorPage } from './pages/CalculatorPage';
 import { RecommendationsPage } from './pages/RecommendationsPage';
 import TracePage from './pages/TracePage';
 import DiseaseDetectionPage from './pages/DiseaseDetectionPage';
+import { Navbar } from './components/ui/Navbar';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const token = localStorage.getItem('token');
@@ -18,15 +19,18 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-        <Route path="/onboarding/farm" element={<ProtectedRoute><FarmOnboardingPage /></ProtectedRoute>} />
-        <Route path="/calculator" element={<ProtectedRoute><CalculatorPage /></ProtectedRoute>} />
-        <Route path="/recommendations" element={<ProtectedRoute><RecommendationsPage /></ProtectedRoute>} />
-        <Route path="/disease-detection" element={<ProtectedRoute><DiseaseDetectionPage /></ProtectedRoute>} />
-        <Route path="/trace/:qrCode" element={<TracePage />} />
-      </Routes>
+        <Navbar />
+        <div className="pt-16">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+            <Route path="/onboarding/farm" element={<ProtectedRoute><FarmOnboardingPage /></ProtectedRoute>} />
+            <Route path="/calculator" element={<ProtectedRoute><CalculatorPage /></ProtectedRoute>} />
+            <Route path="/recommendations" element={<ProtectedRoute><RecommendationsPage /></ProtectedRoute>} />
+            <Route path="/disease-detection" element={<ProtectedRoute><DiseaseDetectionPage /></ProtectedRoute>} />
+            <Route path="/trace/:qrCode" element={<TracePage />} />
+          </Routes>
+        </div>
     </BrowserRouter>
   );
 }

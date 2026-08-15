@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { demoLogin } from '../api/auth';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 
@@ -12,7 +13,7 @@ export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-cream -mt-16">
       {/* Hero Section */}
       <section 
         className="relative h-screen min-h-[600px] flex items-end pb-24 px-6 md:px-12 bg-cover bg-center"
@@ -29,7 +30,16 @@ export const LandingPage: React.FC = () => {
             From soil to market. Get data-driven recommendations, track costs, and connect directly with buyers.
           </p>
           <div className="flex gap-4">
-            <Button variant="secondary" onClick={() => navigate('/dashboard')}>
+            <Button variant="secondary" onClick={async () => {
+              const token = localStorage.getItem('token');
+              if (token) {
+                navigate('/dashboard');
+              } else {
+                const success = await demoLogin();
+                if (success) navigate('/dashboard');
+                else alert('Demo login failed. Please ensure backend is running.');
+              }
+            }}>
               Go to Dashboard
             </Button>
           </div>
