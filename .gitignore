@@ -15,6 +15,7 @@ frontend/.vite/
 frontend/coverage/
 
 # ==================== BACKEND (backend/) ====================
+backend/src/main/resources/application.properties
 backend/target/
 backend/.mvn/wrapper/maven-wrapper.jar
 backend/*.log
