@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { CloudRain, TriangleAlert, Sprout, TrendingUp, IndianRupee, Wind, Droplets, CheckCircle2, Package, ShieldCheck, Sparkles } from 'lucide-react';
