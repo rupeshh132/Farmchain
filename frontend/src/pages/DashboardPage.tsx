@@ -125,8 +125,11 @@ export const DashboardPage: React.FC = () => {
       <header className="mb-8 flex justify-between items-end border-b border-border pb-4">
         <div>
           <h1 className="text-3xl font-heading text-soil-900 mb-1">Today</h1>
-          <p className="text-soil-700 font-mono text-sm uppercase tracking-wider">
+          <p className="text-soil-700 font-mono text-sm uppercase tracking-wider flex justify-between items-center w-full">
             {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' })}
+            <Button variant="outline" className="text-primary border-primary ml-4" onClick={() => navigate('/disease-detection')}>
+              Scan Crop
+            </Button>
           </p>
         </div>
       </header>
