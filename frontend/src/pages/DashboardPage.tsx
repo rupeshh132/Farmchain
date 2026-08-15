@@ -8,6 +8,7 @@ import { getFarmWeather, type DashboardWeatherResponse } from '../api/weather';
 import { getActivePlan, completeTask, type FarmingPlan } from '../api/plan';
 import { getExpenses, addExpense, logHarvest, type Expense } from '../api/finance';
 import { getLatestMarketPrice, type MarketPrice } from '../api/market';
+import { getFarmBatches, type ProduceBatch } from '../api/trace';
 
 import emptyStateImage from '../assets/images/soil-hand-closeup.jpg';
 import cropImage from '../assets/images/farmer-crop-inspection.jpg';
@@ -20,6 +21,7 @@ export const DashboardPage: React.FC = () => {
   const [activePlan, setActivePlan] = useState<FarmingPlan | null>(null);
   const [marketPrice, setMarketPrice] = useState<MarketPrice | null>(null);
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [batches, setBatches] = useState<ProduceBatch[]>([]);
   const [loading, setLoading] = useState(true);
   const [showExpenseModal, setShowExpenseModal] = useState(false);
   const [expenseForm, setExpenseForm] = useState({ category: 'FERTILIZER', amount: '', date: new Date().toISOString().split('T')[0] });
@@ -52,6 +54,13 @@ export const DashboardPage: React.FC = () => {
             }
           } catch (e) {
             // No active plan
+          }
+
+          try {
+            const b = await getFarmBatches(fetchedFarms[0].id);
+            setBatches(b);
+          } catch (e) {
+            // Ignore
           }
         }
       } catch (err) {
@@ -297,6 +306,33 @@ export const DashboardPage: React.FC = () => {
         )}
         
       </div>
+      
+      {/* Produce Inventory */}
+      {batches.length > 0 && (
+        <div className="mt-8 mb-8 bg-white rounded-xl shadow-sm border border-border p-6 max-w-7xl mx-auto">
+          <h2 className="font-heading text-xl text-soil-900 mb-4 flex items-center gap-2">
+            <Package className="text-primary" />
+            Produce Inventory
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {batches.map(b => (
+              <div key={b.id} className="border border-border rounded-lg p-4 flex flex-col justify-between hover:border-primary transition-colors bg-wheat-50">
+                <div>
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="font-medium text-soil-900">{b.cropName}</span>
+                    <span className="text-xs bg-wheat-200 text-wheat-800 px-2 py-1 rounded-full uppercase tracking-wider">{b.status}</span>
+                  </div>
+                  <p className="text-sm text-soil-600 mb-1">{b.quantityKg} kg</p>
+                  <p className="text-xs text-soil-500 font-mono mb-4">{new Date(b.createdAt).toLocaleDateString('en-IN')}</p>
+                </div>
+                <Link to={`/trace/${b.qrCode}`} className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
+                  <ShieldCheck size={16} /> View Traceability
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Expense Modal */}
       {showExpenseModal && (

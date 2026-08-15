@@ -10,6 +10,8 @@ import com.farmchain.finance.repository.ExpenseRepository;
 import com.farmchain.finance.repository.HarvestRepository;
 import com.farmchain.plan.entity.FarmingPlan;
 import com.farmchain.plan.repository.FarmingPlanRepository;
+import com.farmchain.plan.service.FarmingPlanService;
+import com.farmchain.trace.service.TraceabilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,8 @@ public class FinanceService {
     private final ExpenseRepository expenseRepository;
     private final HarvestRepository harvestRepository;
     private final FarmingPlanRepository planRepository;
+    private final FarmingPlanService planService;
+    private final TraceabilityService traceService;
 
     @Transactional
     public ExpenseDto addExpense(UUID planId, ExpenseRequestDto request) {
@@ -76,6 +80,9 @@ public class FinanceService {
         // Mark plan as HARVESTED
         plan.setStatus("HARVESTED");
         planRepository.save(plan);
+
+        // Automatically create a produce batch for traceability
+        traceService.createBatchFromHarvest(harvest);
 
         return HarvestDto.builder()
                 .id(harvest.getId())
