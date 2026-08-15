@@ -1,0 +1,62 @@
+# Root .gitignore for FarmChain Monorepo
+
+# ==================== SECRETS (NEVER COMMIT) ====================
+.env
+.env.local
+.env.production
+*.env
+**/.env
+**/.env.local
+
+# ==================== FRONTEND (frontend/) ====================
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/coverage/
+
+# ==================== BACKEND (backend/) ====================
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/*.log
+backend/logs/
+
+# ==================== ML SERVICE (ml-service/) ====================
+ml-service/__pycache__/
+ml-service/*.pyc
+ml-service/.venv/
+ml-service/venv/
+ml-service/models/*.pkl
+ml-service/models/*.joblib
+ml-service/.pytest_cache/
+
+# ==================== BLOCKCHAIN (blockchain/) ====================
+blockchain/node_modules/
+blockchain/artifacts/
+blockchain/cache/
+blockchain/typechain-types/
+
+# ==================== IDE ====================
+.idea/
+*.iml
+.vscode/settings.json
+.vscode/*.code-workspace
+*.suo
+*.user
+
+# ==================== OS ====================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==================== LOGS ====================
+*.log
+*.log.*
+
+# ==================== BUILD ARTIFACTS ====================
+*.jar
+*.war
+!*-sources.jar
+
+# ==================== JAVA ====================
+hs_err_pid*
+replay_pid*
