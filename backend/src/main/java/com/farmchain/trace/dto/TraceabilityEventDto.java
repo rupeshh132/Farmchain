@@ -11,4 +11,6 @@ public class TraceabilityEventDto {
     private String notes;
     private Instant occurredAt;
     private String actorName;
+    private String txHash;
+    private String blockchainNetwork;
 }

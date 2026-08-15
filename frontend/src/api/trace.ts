@@ -4,7 +4,9 @@ export interface TraceabilityEvent {
     eventType: string;
     notes: string;
     occurredAt: string;
-    actorName?: string;
+    actorName: string | null;
+    txHash?: string;
+    blockchainNetwork?: string;
 }
 
 export interface ProduceBatch {

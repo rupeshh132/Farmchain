@@ -104,9 +104,27 @@ export default function TracePage() {
                     <h3 className="font-heading text-lg text-soil-900 mb-1">{event.eventType}</h3>
                     <p className="text-sm text-soil-600">{event.notes}</p>
                     {event.actorName && (
-                      <p className="text-xs text-soil-500 mt-2 flex items-center gap-1 md:justify-end">
+                      <p className={`text-xs text-soil-500 mt-2 flex items-center gap-1 ${isEven ? 'md:justify-end' : ''}`}>
                         <span className="font-medium">Recorded by:</span> {event.actorName}
                       </p>
+                    )}
+                    {event.txHash && (
+                      <div className={`mt-3 pt-3 border-t border-border flex flex-col gap-1 ${isEven ? 'md:items-end' : ''}`}>
+                        <div className="flex items-center gap-1.5 text-xs text-primary font-medium">
+                          <ShieldCheck size={14} /> Verified on Blockchain
+                        </div>
+                        <a 
+                          href="#" 
+                          className="font-mono text-[10px] text-soil-500 hover:text-primary transition-colors bg-white px-2 py-1 rounded border border-border inline-block"
+                          title="View on Block Explorer"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            alert(`View Transaction on Polygon Explorer:\nHash: ${event.txHash}\nNetwork: ${event.blockchainNetwork}`);
+                          }}
+                        >
+                          {event.txHash.substring(0, 10)}...{event.txHash.substring(event.txHash.length - 8)}
+                        </a>
+                      </div>
                     )}
                   </div>
                 </div>

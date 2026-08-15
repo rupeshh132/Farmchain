@@ -22,6 +22,8 @@ public class TraceabilityService {
 
     private final ProduceBatchRepository batchRepository;
     private final TraceabilityEventRepository eventRepository;
+    private final BlockchainService blockchainService;
+    private final com.farmchain.trace.repository.BlockchainTransactionRepository txRepository;
 
     @Transactional
     public void createBatchFromHarvest(Harvest harvest) {
@@ -44,7 +46,9 @@ public class TraceabilityService {
                 .notes("Crop harvested at farm")
                 .build();
 
-        eventRepository.save(event);
+        event = eventRepository.save(event);
+
+        blockchainService.logEventToChain(event);
     }
 
     public List<ProduceBatchDto> getFarmBatches(UUID farmId) {
@@ -65,12 +69,21 @@ public class TraceabilityService {
                 .orElseThrow(() -> new IllegalArgumentException("Batch not found for QR Code: " + qrCode));
 
         List<TraceabilityEventDto> events = eventRepository.findByBatchIdOrderByOccurredAtDesc(batch.getId()).stream()
-                .map(e -> TraceabilityEventDto.builder()
+                .map(e -> {
+                    TraceabilityEventDto dto = TraceabilityEventDto.builder()
                         .eventType(e.getEventType())
                         .notes(e.getNotes())
                         .occurredAt(e.getOccurredAt())
                         .actorName(e.getActor() != null ? e.getActor().getFullName() : null)
-                        .build())
+                        .build();
+                        
+                    txRepository.findByEventId(e.getId()).ifPresent(tx -> {
+                        dto.setTxHash(tx.getTxHash());
+                        dto.setBlockchainNetwork(tx.getNetwork());
+                    });
+                    
+                    return dto;
+                })
                 .collect(Collectors.toList());
 
         return TraceResponseDto.builder()

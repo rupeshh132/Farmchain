@@ -6,8 +6,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import org.springframework.scheduling.annotation.EnableAsync;
+
 @SpringBootApplication
 @EnableScheduling
+@EnableAsync
 public class BackendApplication {
 
 	public static void main(String[] args) {
