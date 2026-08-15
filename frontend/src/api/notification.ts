@@ -1,4 +1,4 @@
-import api from './axios';
+const API_BASE = 'http://localhost:8080/api/v1/notifications';
 
 export interface Notification {
     id: string;
@@ -8,11 +8,25 @@ export interface Notification {
     createdAt: string;
 }
 
+const getHeaders = () => {
+    const token = localStorage.getItem('token');
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
+    };
+};
+
 export const getNotifications = async (): Promise<Notification[]> => {
-    const response = await api.get('/api/v1/notifications');
-    return response.data.data;
+    const response = await fetch(API_BASE, { headers: getHeaders() });
+    if (!response.ok) throw new Error('Failed to fetch notifications');
+    const data = await response.json();
+    return data.data || [];
 };
 
 export const markNotificationAsRead = async (id: string): Promise<void> => {
-    await api.put(`/api/v1/notifications/${id}/read`);
+    const response = await fetch(`${API_BASE}/${id}/read`, {
+        method: 'PUT',
+        headers: getHeaders()
+    });
+    if (!response.ok) throw new Error('Failed to mark notification as read');
 };
