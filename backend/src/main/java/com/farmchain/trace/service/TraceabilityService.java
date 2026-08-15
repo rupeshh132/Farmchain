@@ -24,6 +24,7 @@ public class TraceabilityService {
     private final TraceabilityEventRepository eventRepository;
     private final BlockchainService blockchainService;
     private final com.farmchain.trace.repository.BlockchainTransactionRepository txRepository;
+    private final com.farmchain.notification.service.NotificationService notificationService;
 
     @Transactional
     public void createBatchFromHarvest(Harvest harvest) {
@@ -49,6 +50,12 @@ public class TraceabilityService {
         event = eventRepository.save(event);
 
         blockchainService.logEventToChain(event);
+        
+        notificationService.createNotification(
+                harvest.getPlan().getFarm().getOwner(),
+                "TRACEABILITY",
+                "New produce batch created and queued for blockchain verification. QR Code: " + qrCode
+        );
     }
 
     public List<ProduceBatchDto> getFarmBatches(UUID farmId) {
