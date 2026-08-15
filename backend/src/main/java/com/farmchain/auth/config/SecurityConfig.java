@@ -41,6 +41,7 @@ public class SecurityConfig {
                         // Public endpoints
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/api/v1/batches/*/trace").permitAll()  // public QR trace
+                        .requestMatchers("/api/v1/markets/ingest").permitAll()
                         .requestMatchers("/actuator/health").permitAll()
                         // Everything else requires authentication
                         .anyRequest().authenticated()

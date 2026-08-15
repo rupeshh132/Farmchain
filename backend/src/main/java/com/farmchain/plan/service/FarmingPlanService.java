@@ -99,6 +99,7 @@ public class FarmingPlanService {
 
                     return FarmingPlanDto.builder()
                             .id(plan.getId())
+                            .cropId(plan.getCrop().getId())
                             .cropName(plan.getCrop().getName())
                             .varietyName(plan.getVariety() != null ? plan.getVariety().getVarietyName() : null)
                             .sowingDate(plan.getSowingDate())

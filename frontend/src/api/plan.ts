@@ -10,6 +10,7 @@ export interface FarmingTask {
 
 export interface FarmingPlan {
     id: string;
+    cropId: string;
     cropName: string;
     varietyName: string;
     sowingDate: string;

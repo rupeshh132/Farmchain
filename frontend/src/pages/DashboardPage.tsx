@@ -7,6 +7,7 @@ import { getFarms, type Farm } from '../api/farm';
 import { getFarmWeather, type DashboardWeatherResponse } from '../api/weather';
 import { getActivePlan, completeTask, type FarmingPlan } from '../api/plan';
 import { getExpenses, addExpense, logHarvest, type Expense } from '../api/finance';
+import { getLatestMarketPrice, type MarketPrice } from '../api/market';
 
 import emptyStateImage from '../assets/images/soil-hand-closeup.jpg';
 import cropImage from '../assets/images/farmer-crop-inspection.jpg';
@@ -17,6 +18,7 @@ export const DashboardPage: React.FC = () => {
   const [farm, setFarm] = useState<Farm | null>(null);
   const [weatherData, setWeatherData] = useState<DashboardWeatherResponse | null>(null);
   const [activePlan, setActivePlan] = useState<FarmingPlan | null>(null);
+  const [marketPrice, setMarketPrice] = useState<MarketPrice | null>(null);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
   const [showExpenseModal, setShowExpenseModal] = useState(false);
@@ -39,6 +41,14 @@ export const DashboardPage: React.FC = () => {
             if (plan) {
               const exp = await getExpenses(plan.id);
               setExpenses(exp);
+              try {
+                if (fetchedFarms[0].state) {
+                  const mPrice = await getLatestMarketPrice(plan.cropId, fetchedFarms[0].state);
+                  setMarketPrice(mPrice);
+                }
+              } catch (e) {
+                // No market price
+              }
             }
           } catch (e) {
             // No active plan
@@ -239,10 +249,13 @@ export const DashboardPage: React.FC = () => {
                   </div>
                   <h3 className="font-heading text-lg text-soil-900 mb-1">{activePlan ? `${activePlan.cropName} (${activePlan.varietyName})` : 'Wheat (Lok-1)'}</h3>
                   <div className="flex items-end gap-2">
-                    <span className="font-mono text-2xl text-soil-900">₹2,450</span>
+                    <span className="font-mono text-2xl text-soil-900">₹{marketPrice ? marketPrice.modalPrice.toLocaleString('en-IN') : '2,450'}</span>
                     <span className="font-mono text-sm text-soil-700 mb-1">/ qtl</span>
                   </div>
-                  <p className="text-xs text-soil-700 mt-2">Source: Agmarknet (Today, 6:00 AM)</p>
+                  <p className="text-xs text-soil-700 mt-2">Source: {marketPrice ? marketPrice.source : 'Agmarknet (Today, 6:00 AM)'}</p>
+                  {marketPrice && (
+                    <p className="text-[10px] text-soil-500 mt-1 uppercase tracking-wider">{marketPrice.marketName}, {marketPrice.district}</p>
+                  )}
                 </div>
                 
                 <div className="p-6 flex-1 bg-white">

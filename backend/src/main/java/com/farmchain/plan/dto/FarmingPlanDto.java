@@ -10,6 +10,7 @@ import java.util.UUID;
 @Builder
 public class FarmingPlanDto {
     private UUID id;
+    private UUID cropId;
     private String cropName;
     private String varietyName;
     private LocalDate sowingDate;
