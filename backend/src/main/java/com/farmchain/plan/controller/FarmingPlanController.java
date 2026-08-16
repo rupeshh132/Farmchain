@@ -39,8 +39,7 @@ public class FarmingPlanController {
 
     @GetMapping("/plans/{planId}/yield")
     public ResponseEntity<ApiResponse<com.farmchain.plan.dto.YieldPredictionDto>> getYieldPrediction(
-            @PathVariable UUID planId,
-            @org.springframework.security.core.annotation.AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails) {
+            @PathVariable UUID planId) {
         
         com.farmchain.plan.dto.YieldPredictionDto dto = yieldPredictionService.getOrPredictYield(planId);
         return ResponseEntity.ok(ApiResponse.ok(dto));

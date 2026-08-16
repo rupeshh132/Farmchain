@@ -8,7 +8,6 @@ import com.farmchain.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,22 +23,16 @@ public class NotificationController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<NotificationDto>>> getNotifications(
-            @AuthenticationPrincipal UserDetails userDetails) {
+            @AuthenticationPrincipal User user) {
         
-        User user = userRepository.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-                
         return ResponseEntity.ok(ApiResponse.ok(notificationService.getUserNotifications(user.getId())));
     }
 
     @PutMapping("/{id}/read")
     public ResponseEntity<ApiResponse<Void>> markAsRead(
             @PathVariable UUID id,
-            @AuthenticationPrincipal UserDetails userDetails) {
+            @AuthenticationPrincipal User user) {
         
-        User user = userRepository.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-                
         notificationService.markAsRead(id, user.getId());
         return ResponseEntity.ok(ApiResponse.ok(null));
     }
