@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { MoreVertical, X, Home, Sparkles, Layers, LogIn, UserPlus, LogOut } from 'lucide-react';
+import { MoreVertical, X } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -21,95 +21,100 @@ export const Navbar: React.FC = () => {
     setIsOpen(false);
   };
 
-  const menuItems = [
-    { label: 'Home', icon: Home, onClick: () => navigate('/') },
-    { label: 'Features', icon: Sparkles, onClick: () => navigate('/#features') },
-    { label: 'How it Works', icon: Layers, onClick: () => navigate('/#how-it-works') },
+  const navLinks = [
+    { label: 'Home', onClick: () => navigate('/') },
+    { label: 'Features', onClick: () => navigate('/#features') },
+    { label: 'How it Works', onClick: () => navigate('/#how-it-works') },
   ];
 
   return (
-    <div className="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none px-4">
+    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex justify-center pointer-events-none">
       
-      {/* Floating Pill Container */}
+      {/* Expanding Pill Container */}
       <motion.div 
         layout
-        className="pointer-events-auto relative flex items-center justify-between bg-soil-950 text-cream rounded-full px-2 py-2 pr-2 shadow-2xl shadow-soil-900/30 border border-soil-800 backdrop-blur-xl w-full max-w-[280px]"
+        className="pointer-events-auto flex items-center bg-soil-950 text-cream rounded-full px-2 py-2 pr-2 shadow-2xl shadow-soil-900/30 border border-soil-800 backdrop-blur-xl gap-2 md:gap-4 overflow-hidden"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30, mass: 0.8 }}
+        style={{ borderRadius: 9999 }}
       >
         {/* Left Side: Logo & Brand */}
-        <div 
-          className="flex items-center gap-2 pl-3 cursor-pointer select-none"
+        <motion.div 
+          layout="position"
+          className="flex items-center gap-2 pl-3 cursor-pointer select-none shrink-0"
           onClick={() => navigate('/')}
         >
           <img src="/logo.png" alt="FarmChain Logo" className="w-7 h-7 object-contain mix-blend-screen" />
-          <span className="font-heading text-lg font-bold tracking-tight mt-0.5">FarmChain</span>
-        </div>
+          <span className="font-heading text-lg font-bold tracking-tight mt-0.5 pr-2">FarmChain</span>
+        </motion.div>
 
-        {/* Right Side: Menu Button */}
-        <button 
-          onClick={() => setIsOpen(!isOpen)}
-          className="w-10 h-10 bg-cream text-soil-950 rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-all"
-          aria-label="Toggle Menu"
-        >
-          {isOpen ? <X size={20} strokeWidth={2.5} /> : <MoreVertical size={20} strokeWidth={2.5} />}
-        </button>
-
-        {/* Dropdown Menu */}
-        <AnimatePresence>
+        {/* Horizontal Menu Items */}
+        <AnimatePresence mode="popLayout">
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              className="absolute top-[120%] left-0 right-0 bg-soil-950 border border-soil-800 rounded-2xl p-2 shadow-xl overflow-hidden origin-top"
+              key="menu-items"
+              initial={{ opacity: 0, width: 0, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, width: 'auto', filter: 'blur(0px)' }}
+              exit={{ opacity: 0, width: 0, filter: 'blur(10px)' }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="flex items-center gap-2 md:gap-4 px-2 whitespace-nowrap overflow-hidden"
             >
-              <div className="flex flex-col gap-1">
-                {menuItems.map((item, idx) => (
-                  <button
-                    key={idx}
-                    onClick={item.onClick}
-                    className="flex items-center gap-3 px-4 py-3 text-cream/80 hover:text-white hover:bg-soil-800 rounded-xl transition-colors text-left"
-                  >
-                    <item.icon size={18} />
-                    <span className="font-body font-medium">{item.label}</span>
-                  </button>
-                ))}
+              {navLinks.map((item, idx) => (
+                <button
+                  key={idx}
+                  onClick={item.onClick}
+                  className="font-body font-medium text-sm text-cream/70 hover:text-white transition-colors"
+                >
+                  {item.label}
+                </button>
+              ))}
 
-                <div className="h-px bg-soil-800/50 my-1 mx-2" />
+              <div className="w-px h-4 bg-soil-800 mx-1" />
 
-                {!token ? (
-                  <>
-                    <button
-                      onClick={() => navigate('/login')}
-                      className="flex items-center gap-3 px-4 py-3 text-cream/80 hover:text-white hover:bg-soil-800 rounded-xl transition-colors text-left"
-                    >
-                      <LogIn size={18} />
-                      <span className="font-body font-medium">Log In</span>
-                    </button>
-                    <button
-                      onClick={() => navigate('/signup')}
-                      className="flex items-center gap-3 px-4 py-3 text-primary-light hover:text-primary hover:bg-soil-800 rounded-xl transition-colors text-left"
-                    >
-                      <UserPlus size={18} />
-                      <span className="font-body font-medium">Create Account</span>
-                    </button>
-                  </>
-                ) : (
+              {!token ? (
+                <>
                   <button
-                    onClick={handleLogout}
-                    className="flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-soil-800 rounded-xl transition-colors text-left"
+                    onClick={() => navigate('/login')}
+                    className="font-body font-medium text-sm text-cream hover:text-white transition-colors"
                   >
-                    <LogOut size={18} />
-                    <span className="font-body font-medium">Log Out</span>
+                    Log In
                   </button>
-                )}
-              </div>
+                  <button
+                    onClick={() => navigate('/signup')}
+                    className="font-body font-medium text-sm bg-primary/20 text-primary-light hover:bg-primary/30 px-3 py-1.5 rounded-full transition-colors"
+                  >
+                    Sign Up
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={handleLogout}
+                  className="font-body font-medium text-sm bg-red-500/20 text-red-400 hover:bg-red-500/30 px-3 py-1.5 rounded-full transition-colors"
+                >
+                  Log Out
+                </button>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Right Side: Menu Button */}
+        <motion.button 
+          layout="position"
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-10 h-10 bg-cream text-soil-950 rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-all shrink-0 ml-auto"
+          aria-label="Toggle Menu"
+        >
+          <motion.div
+            initial={false}
+            animate={{ rotate: isOpen ? 90 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {isOpen ? <X size={20} strokeWidth={2.5} /> : <MoreVertical size={20} strokeWidth={2.5} />}
+          </motion.div>
+        </motion.button>
+
       </motion.div>
 
     </div>
