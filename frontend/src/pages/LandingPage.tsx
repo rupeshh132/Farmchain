@@ -103,6 +103,10 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
+import { AccordionGallery, type AccordionGalleryItem } from '../components/ui/AccordionGallery';
+
+// ... further down
+
       {/* 4. Enhanced "How it Works" Section */}
       <section id="how-it-works" className="py-24 px-6 md:px-12 bg-wheat-50 border-t border-border">
         <div className="max-w-7xl mx-auto">
@@ -111,64 +115,30 @@ export const LandingPage: React.FC = () => {
             <p className="text-xl text-soil-600 font-body">Three simple steps to maximize your agricultural output.</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Step 1 */}
-            <Card noPadding className="group overflow-hidden flex flex-col border-none shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer bg-white">
-              <div className="h-64 w-full relative overflow-hidden">
-                <img 
-                  src={step1Image} 
-                  alt="Farmer sowing field" 
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-soil-950/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                <div className="absolute bottom-4 left-6 text-white font-heading text-5xl opacity-30 font-bold">01</div>
-              </div>
-              <div className="p-8 flex-1 flex flex-col justify-center">
-                <h3 className="font-heading text-2xl text-soil-900 mb-3 group-hover:text-primary transition-colors">Profile your Farm</h3>
-                <p className="text-soil-600 font-body leading-relaxed">
-                  Map your land digitally. Enter your soil composition, pH levels, and water availability to build your farm's digital twin.
-                </p>
-              </div>
-            </Card>
-
-            {/* Step 2 */}
-            <Card noPadding className="group overflow-hidden flex flex-col border-none shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer bg-white">
-              <div className="h-64 w-full relative overflow-hidden">
-                <img 
-                  src={step2Image} 
-                  alt="Close-up of soil" 
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-soil-950/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                <div className="absolute bottom-4 left-6 text-white font-heading text-5xl opacity-30 font-bold">02</div>
-              </div>
-              <div className="p-8 flex-1 flex flex-col justify-center">
-                <h3 className="font-heading text-2xl text-soil-900 mb-3 group-hover:text-primary transition-colors">Get AI Insights</h3>
-                <p className="text-soil-600 font-body leading-relaxed">
-                  Receive personalized, data-backed crop choices. Track daily tasks, input costs, and weather forecasts specific to your region.
-                </p>
-              </div>
-            </Card>
-
-            {/* Step 3 */}
-            <Card noPadding className="group overflow-hidden flex flex-col border-none shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer bg-white">
-              <div className="h-64 w-full relative overflow-hidden">
-                <img 
-                  src={step3Image} 
-                  alt="Busy mandi market" 
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-soil-950/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                <div className="absolute bottom-4 left-6 text-white font-heading text-5xl opacity-30 font-bold">03</div>
-              </div>
-              <div className="p-8 flex-1 flex flex-col justify-center">
-                <h3 className="font-heading text-2xl text-soil-900 mb-3 group-hover:text-primary transition-colors">Track the Market</h3>
-                <p className="text-soil-600 font-body leading-relaxed">
-                  Monitor real-time mandi prices across states. Harvest and sell at the optimal time for the highest possible return on investment.
-                </p>
-              </div>
-            </Card>
-          </div>
+          <AccordionGallery 
+            items={[
+              {
+                image: step1Image,
+                label: '1. Profile your Farm',
+                description: 'Map your land digitally. Enter your soil composition, pH levels, and water availability to build your farm\'s digital twin.'
+              },
+              {
+                image: step2Image,
+                label: '2. Get AI Insights',
+                description: 'Receive personalized, data-backed crop choices. Track daily tasks, input costs, and weather forecasts specific to your region.'
+              },
+              {
+                image: step3Image,
+                label: '3. Track the Market',
+                description: 'Monitor real-time mandi prices across states. Harvest and sell at the optimal time for the highest possible return on investment.'
+              }
+            ]}
+            height={500}
+            expandRatio={0.6}
+            accentColor="#6B8C5F"
+            overlayColor="#3A2E22"
+            textColor="#F7F3EA"
+          />
         </div>
       </section>
       
