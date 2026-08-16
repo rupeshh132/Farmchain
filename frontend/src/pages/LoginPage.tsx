@@ -42,10 +42,9 @@ export const LoginPage: React.FC = () => {
       
       <div className="w-full max-w-md relative z-10 animate-fade-in-up">
         <div className="bg-white/80 backdrop-blur-xl border border-white/50 p-8 md:p-10 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-          <div className="flex justify-center mb-6">
-            <div className="h-16 w-16 bg-primary/10 rounded-2xl flex items-center justify-center">
-              <Sprout size={32} className="text-primary" />
-            </div>
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <img src="/logo.png" alt="FarmChain Logo" className="w-12 h-12 object-contain" />
+            <span className="font-heading text-3xl font-bold text-soil-900 tracking-tight">FarmChain</span>
           </div>
           
           <h2 className="text-3xl font-heading text-center text-soil-900 mb-2 font-bold">Welcome Back</h2>

@@ -20,11 +20,11 @@ export const Navbar: React.FC = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-md border-b border-border h-16">
       <div className="max-w-7xl mx-auto px-6 md:px-12 h-full flex items-center justify-between">
         <div 
-          className="flex items-center gap-2 cursor-pointer text-primary hover:text-primary/80 transition-colors"
+          className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
           onClick={() => navigate('/')}
         >
-          <Sprout size={28} />
-          <span className="font-heading text-xl text-soil-900 font-bold tracking-tight">FarmChain</span>
+          <img src="/logo.png" alt="FarmChain Logo" className="w-10 h-10 object-contain" />
+          <span className="font-heading text-2xl text-soil-900 font-bold tracking-tight">FarmChain</span>
         </div>
         
         <div className="flex gap-4 items-center">

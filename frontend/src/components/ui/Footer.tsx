@@ -8,9 +8,9 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
         {/* Brand */}
         <div className="md:col-span-1">
-          <div className="flex items-center gap-2 text-primary mb-4">
-            <Sprout size={32} />
-            <span className="font-heading text-2xl text-cream font-bold tracking-tight">FarmChain</span>
+          <div className="flex items-center gap-3 mb-6">
+            <img src="/logo.png" alt="FarmChain Logo" className="w-10 h-10 object-contain" />
+            <span className="font-heading text-2xl font-bold">FarmChain</span>
           </div>
           <p className="font-body text-sm max-w-xs">
             Empowering modern agriculture with AI-driven insights, crop traceability, and real-time market data.
