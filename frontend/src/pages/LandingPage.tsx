@@ -1,14 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from '../components/ui/Card';
-import { TrendingUp, Camera, ShieldCheck, ArrowRight, Brain, Zap } from 'lucide-react';
+import { ArrowRight, Zap } from 'lucide-react';
 
 import heroImage from '../assets/images/hero-field-morning.jpg';
 import step1Image from '../assets/images/farmer-sowing-field.jpg';
 import step2Image from '../assets/images/soil-hand-closeup.jpg';
 import step3Image from '../assets/images/mandi-market-morning.jpg';
 
-import { GlassIcons, type GlassIconsItem } from '../components/ui/GlassIcons';
 import { AccordionGallery } from '../components/ui/AccordionGallery';
 
 import { ScrollExpand } from '../components/ui/ScrollExpand';
@@ -20,6 +19,7 @@ import { MarketTicker } from '../components/ui/MarketTicker';
 import { ProfitCalculator } from '../components/ui/ProfitCalculator';
 import { ComparisonSlider } from '../components/ui/ComparisonSlider';
 import { TestimonialMarquee } from '../components/ui/TestimonialMarquee';
+import { BentoPillars } from '../components/ui/BentoPillars';
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -32,13 +32,6 @@ export const LandingPage: React.FC = () => {
       navigate('/signup');
     }
   };
-
-  const glassItems: GlassIconsItem[] = [
-    { icon: <Brain size={28} />, color: 'leaf', label: 'AI Yield' },
-    { icon: <Camera size={28} />, color: 'terracotta', label: 'Disease Scan' },
-    { icon: <ShieldCheck size={28} />, color: 'sky', label: 'Traceability' },
-    { icon: <TrendingUp size={28} />, color: 'wheat', label: 'Live APIs' },
-  ];
 
   return (
     <div className="min-h-screen bg-soil-950 -mt-24 selection:bg-primary/30">
@@ -103,38 +96,8 @@ export const LandingPage: React.FC = () => {
       {/* 1.5 Real-time Market Ticker */}
       <MarketTicker />
 
-      {/* 2. Interactive Glass Features Grid */}
-      <section className="bg-soil-950 py-16 border-y border-soil-800">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 text-center mb-8">
-           <h2 className="text-2xl md:text-3xl font-heading text-cream mb-2 font-medium tracking-tight">Our Core Pillars</h2>
-           <p className="text-cream/60 font-mono text-sm uppercase tracking-wider">Hover to interact</p>
-        </div>
-        <GlassIcons items={glassItems} className="text-cream" />
-      </section>
-
-      {/* 3. Core Features Showcase */}
-      <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-heading text-soil-900 mb-4 font-bold tracking-tight">Everything you need to grow</h2>
-          <p className="text-xl text-soil-600 font-body max-w-2xl mx-auto">A unified platform that replaces guesswork with data science.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            { icon: TrendingUp, title: 'Smart Yield Prediction', desc: 'Our ML models analyze your soil profile and local weather to predict your exact crop yield before you even sow.' },
-            { icon: Camera, title: 'AI Disease Detection', desc: 'Snap a picture of a diseased leaf. Our deep learning engine instantly identifies the pathogen and suggests treatments.' },
-            { icon: ShieldCheck, title: 'Blockchain Traceability', desc: 'Generate QR codes for your harvest. Buyers can scan to view the complete immutable history of your produce.' }
-          ].map((feature, idx) => (
-            <div key={idx} className="group p-8 rounded-2xl bg-white border border-border hover:border-primary/50 transition-all hover:shadow-xl hover:-translate-y-1">
-              <div className="h-14 w-14 rounded-xl bg-wheat-100 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
-                <feature.icon size={28} className="text-primary" />
-              </div>
-              <h3 className="text-2xl font-heading text-soil-900 mb-3">{feature.title}</h3>
-              <p className="text-soil-600 font-body leading-relaxed">{feature.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* 2. Bento Grid Features Section */}
+      <BentoPillars />
 
       {/* 3.5 Before & After AI Comparison */}
       <ComparisonSlider 
