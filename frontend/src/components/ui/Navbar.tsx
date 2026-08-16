@@ -103,7 +103,7 @@ export const Navbar: React.FC = () => {
         <motion.button 
           layout="position"
           onClick={() => setIsOpen(!isOpen)}
-          className="w-10 h-10 bg-cream text-soil-950 rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-all shrink-0 ml-auto"
+          className="w-10 h-10 bg-white/5 hover:bg-white/10 border border-white/10 text-cream rounded-full flex items-center justify-center transition-all shrink-0 ml-auto"
           aria-label="Toggle Menu"
         >
           <motion.div
