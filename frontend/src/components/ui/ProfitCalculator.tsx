@@ -20,17 +20,17 @@ export const ProfitCalculator: React.FC = () => {
   const extraProfit = Math.round(aiRevenue - traditionalRevenue);
   
   return (
-    <section className="py-24 px-6 md:px-12 bg-[#F9F6F0] relative overflow-hidden border-t border-soil-200">
+    <section className="py-10 md:py-16 px-4 md:px-8 bg-[#F9F6F0] relative overflow-hidden border-t border-soil-200">
       
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-20 relative z-10">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 md:gap-20 relative z-10">
         
         {/* Text Side - Typographic Focus */}
-        <div className="flex-1 text-center lg:text-left">
-          <div className="mb-6 inline-block border-b border-soil-900 pb-2">
+        <div className="flex-1 text-center lg:text-left w-full">
+          <div className="mb-4 md:mb-6 inline-block border-b border-soil-900 pb-2">
             <span className="text-soil-900 font-mono text-sm uppercase tracking-[0.2em] font-bold">Projected Impact</span>
           </div>
           
-          <h2 className="text-5xl md:text-7xl font-heading text-soil-900 mb-8 font-bold leading-[1.1] tracking-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-heading text-soil-900 mb-6 md:mb-8 font-bold leading-[1.1] tracking-tight">
             See how much <br className="hidden md:block"/>
             you could be <span className="italic font-light">earning.</span>
           </h2>

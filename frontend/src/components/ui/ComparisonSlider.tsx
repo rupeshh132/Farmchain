@@ -54,16 +54,16 @@ export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({
   }, [isDragging]);
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-6 md:px-12 py-24">
-      <div className="text-center mb-12 flex flex-col items-center">
+    <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-16">
+      <div className="text-center mb-8 md:mb-12 flex flex-col items-center">
         <MaskedHeading 
           text="See the Difference" 
           src="/farm_traditional.jpg" 
-          className="text-4xl md:text-6xl font-heading mb-4 font-bold max-w-4xl"
+          className="text-3xl sm:text-4xl md:text-6xl font-heading mb-3 md:mb-4 font-bold max-w-4xl"
           parallax={30}
           fillScale={1.5}
         />
-        <p className="text-xl text-soil-700 font-body max-w-2xl mx-auto">
+        <p className="text-base sm:text-xl text-soil-700 font-body max-w-2xl mx-auto leading-relaxed">
           Drag the slider to see how FarmChain's precision AI reveals the hidden potential in your fields.
         </p>
       </div>
