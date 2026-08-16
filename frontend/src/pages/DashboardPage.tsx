@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { CloudRain, TriangleAlert, Sprout, TrendingUp, IndianRupee, Wind, Droplets, CheckCircle2, Package, ShieldCheck, Sparkles } from 'lucide-react';
+import { CloudRain, TriangleAlert, Sprout, TrendingUp, IndianRupee, Wind, Droplets, CheckCircle2, Package, ShieldCheck, Sparkles, Camera, Calculator, MapPin } from 'lucide-react';
+import { GlassIcons, type GlassIconsItem } from '../components/ui/GlassIcons';
 import { getFarms, type Farm } from '../api/farm';
 import { getFarmWeather, type DashboardWeatherResponse } from '../api/weather';
 import { getActivePlan, completeTask, getYieldPrediction, type FarmingPlan, type YieldPredictionDto } from '../api/plan';
@@ -124,11 +125,18 @@ export const DashboardPage: React.FC = () => {
   const hasActivePlan = farm !== null;
   const todayWeather = weatherData?.forecast?.[0];
 
+  const quickActions: GlassIconsItem[] = [
+    { icon: <Sprout size={24} />, color: 'leaf', label: 'Crops', onClick: () => navigate('/recommendations') },
+    { icon: <Camera size={24} />, color: 'terracotta', label: 'Scan', onClick: () => navigate('/disease-detection') },
+    { icon: <Calculator size={24} />, color: 'wheat', label: 'Calc', onClick: () => navigate('/calculator') },
+    { icon: <MapPin size={24} />, color: 'sky', label: 'Trace', onClick: () => navigate('/trace') },
+  ];
+
   return (
     <div className="min-h-screen bg-cream px-4 md:px-8 py-8 md:py-12 max-w-4xl mx-auto">
       
       {/* Header */}
-      <header className="mb-8 flex justify-between items-end border-b border-border pb-4">
+      <header className="mb-6 flex justify-between items-end border-b border-border pb-4">
         <div>
           <h1 className="text-3xl font-heading text-soil-900 mb-1 flex items-center gap-4">
             Today
@@ -136,12 +144,14 @@ export const DashboardPage: React.FC = () => {
           </h1>
           <p className="text-soil-700 font-mono text-sm uppercase tracking-wider flex justify-between items-center w-full">
             {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' })}
-            <Button variant="outline" className="text-primary border-primary ml-4" onClick={() => navigate('/disease-detection')} aria-label="Scan Crop for Diseases">
-              Scan Crop
-            </Button>
           </p>
         </div>
       </header>
+
+      {/* Quick Actions 3D Grid */}
+      <div className="mb-10">
+        <GlassIcons items={quickActions} />
+      </div>
 
       {/* Main Stack */}
       <div className="flex flex-col gap-6">
