@@ -2,21 +2,11 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from './Button';
 import { Sprout } from 'lucide-react';
-import { demoLogin } from '../../api/auth';
 
 export const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const token = localStorage.getItem('token');
-
-  const handleDemoLogin = async () => {
-    const success = await demoLogin();
-    if (success) {
-      navigate('/dashboard');
-    } else {
-      alert('Demo login failed. Please ensure backend is running.');
-    }
-  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -39,9 +29,14 @@ export const Navbar: React.FC = () => {
         
         <div className="flex gap-4 items-center">
           {!token ? (
-            <Button variant="primary" className="text-sm py-1.5" onClick={handleDemoLogin}>
-              Demo Login
-            </Button>
+            <>
+              <Button variant="outline" className="text-sm py-1.5 hidden md:block" onClick={() => navigate('/login')}>
+                Log In
+              </Button>
+              <Button variant="primary" className="text-sm py-1.5" onClick={() => navigate('/signup')}>
+                Sign Up
+              </Button>
+            </>
           ) : (
             <>
               {location.pathname !== '/dashboard' && (

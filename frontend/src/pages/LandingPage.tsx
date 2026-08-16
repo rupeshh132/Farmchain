@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { demoLogin } from '../api/auth';
 import { Card } from '../components/ui/Card';
 import { TrendingUp, Camera, ShieldCheck, ArrowRight, Brain, Zap } from 'lucide-react';
 
@@ -12,14 +11,12 @@ import step3Image from '../assets/images/mandi-market-morning.jpg';
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleCTA = async () => {
+  const handleCTA = () => {
     const token = localStorage.getItem('token');
     if (token) {
       navigate('/dashboard');
     } else {
-      const success = await demoLogin();
-      if (success) navigate('/dashboard');
-      else alert('Demo login failed. Please ensure backend is running.');
+      navigate('/signup');
     }
   };
 

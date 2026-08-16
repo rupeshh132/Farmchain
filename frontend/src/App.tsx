@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LandingPage } from './pages/LandingPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { LoginPage } from './pages/LoginPage';
+import { SignupPage } from './pages/SignupPage';
 import { FarmOnboardingPage } from './pages/FarmOnboardingPage';
 import { CalculatorPage } from './pages/CalculatorPage';
 import { RecommendationsPage } from './pages/RecommendationsPage';
@@ -26,6 +28,8 @@ function App() {
           <div className="flex-1">
             <Routes>
               <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
               <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
               <Route path="/onboarding/farm" element={<ProtectedRoute><FarmOnboardingPage /></ProtectedRoute>} />
               <Route path="/calculator" element={<ProtectedRoute><CalculatorPage /></ProtectedRoute>} />

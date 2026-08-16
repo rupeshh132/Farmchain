@@ -1,8 +1,36 @@
 const API_BASE = 'http://localhost:8080/api/v1/auth';
 
+export const login = async (data: any) => {
+    const response = await fetch(`${API_BASE}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    
+    const result = await response.json();
+    if (!response.ok) {
+        throw new Error(result.message || 'Login failed');
+    }
+    return result;
+};
+
+export const register = async (data: any) => {
+    const response = await fetch(`${API_BASE}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    
+    const result = await response.json();
+    if (!response.ok) {
+        throw new Error(result.message || 'Registration failed');
+    }
+    return result;
+};
+
+// Deprecated: Keeping just in case something breaks while migrating, but we shouldn't use it.
 export const demoLogin = async () => {
     try {
-        // Try registering the demo user
         await fetch(`${API_BASE}/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -15,7 +43,6 @@ export const demoLogin = async () => {
             })
         });
 
-        // Always try to login, whether register succeeded or failed (due to already exists)
         const loginRes = await fetch(`${API_BASE}/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
