@@ -12,6 +12,7 @@ import { GlassIcons, type GlassIconsItem } from '../components/ui/GlassIcons';
 import { AccordionGallery } from '../components/ui/AccordionGallery';
 
 import { ScrollExpand } from '../components/ui/ScrollExpand';
+import RotatingText from '../components/ui/RotatingText';
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -51,7 +52,19 @@ export const LandingPage: React.FC = () => {
             Welcome to the future of farming
           </div>
           <h1 className="text-white text-5xl md:text-7xl font-heading font-bold mb-6 leading-[1.1] tracking-tight text-balance">
-            Agricultural intelligence <br className="hidden md:block"/>for every decision.
+            Agricultural intelligence <br className="hidden md:block"/>for every{' '}
+            <RotatingText
+              texts={['Harvest.', 'Season.', 'Crop.', 'Decision.']}
+              mainClassName="text-primary-light inline-flex overflow-hidden"
+              staggerFrom="last"
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-120%" }}
+              staggerDuration={0.025}
+              splitLevelClassName="overflow-hidden"
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              rotationInterval={3000}
+            />
           </h1>
           <p className="text-cream/90 font-body text-xl md:text-2xl mb-10 max-w-2xl font-light leading-relaxed text-balance">
             From soil preparation to market sale. Get AI-driven recommendations, scan crops for diseases, and trace your produce on the blockchain.
