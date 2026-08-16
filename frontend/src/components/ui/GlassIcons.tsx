@@ -46,7 +46,7 @@ export const GlassIcons: React.FC<GlassIconsProps> = ({ items, className }) => {
               {item.icon}
             </span>
           </span>
-          <span className="icon-btn__label font-body font-medium text-soil-900">{item.label}</span>
+          <span className="icon-btn__label font-body font-medium">{item.label}</span>
         </button>
       ))}
     </div>

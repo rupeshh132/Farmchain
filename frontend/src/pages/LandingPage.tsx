@@ -8,6 +8,8 @@ import step1Image from '../assets/images/farmer-sowing-field.jpg';
 import step2Image from '../assets/images/soil-hand-closeup.jpg';
 import step3Image from '../assets/images/mandi-market-morning.jpg';
 
+import { GlassIcons, type GlassIconsItem } from '../components/ui/GlassIcons';
+
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
@@ -19,6 +21,13 @@ export const LandingPage: React.FC = () => {
       navigate('/signup');
     }
   };
+
+  const glassItems: GlassIconsItem[] = [
+    { icon: <Brain size={28} />, color: 'leaf', label: 'AI Yield' },
+    { icon: <Camera size={28} />, color: 'terracotta', label: 'Disease Scan' },
+    { icon: <ShieldCheck size={28} />, color: 'sky', label: 'Traceability' },
+    { icon: <TrendingUp size={28} />, color: 'wheat', label: 'Live APIs' },
+  ];
 
   return (
     <div className="min-h-screen bg-cream -mt-16 selection:bg-primary/30">
@@ -61,14 +70,14 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. Trust Bar */}
-      <div className="bg-soil-950 py-6 border-y border-soil-800">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-wrap justify-center gap-x-12 gap-y-6 text-cream/60 font-mono text-sm uppercase tracking-wider">
-          <div className="flex items-center gap-2"><Brain size={18} className="text-primary"/> AI Yield Prediction</div>
-          <div className="flex items-center gap-2"><ShieldCheck size={18} className="text-primary"/> Immutable Traceability</div>
-          <div className="flex items-center gap-2"><TrendingUp size={18} className="text-primary"/> Live Mandi APIs</div>
+      {/* 2. Interactive Glass Features Grid */}
+      <section className="bg-soil-950 py-16 border-y border-soil-800">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 text-center mb-8">
+           <h2 className="text-2xl md:text-3xl font-heading text-cream mb-2 font-medium tracking-tight">Our Core Pillars</h2>
+           <p className="text-cream/60 font-mono text-sm uppercase tracking-wider">Hover to interact</p>
         </div>
-      </div>
+        <GlassIcons items={glassItems} className="text-cream" />
+      </section>
 
       {/* 3. Core Features Showcase */}
       <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
