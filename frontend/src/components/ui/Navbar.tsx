@@ -23,7 +23,7 @@ export const Navbar: React.FC = () => {
           className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
           onClick={() => navigate('/')}
         >
-          <img src="/logo.png" alt="FarmChain Logo" className="w-10 h-10 object-contain" />
+          <img src="/logo.png" alt="FarmChain Logo" className="w-10 h-10 object-contain mix-blend-multiply" />
           <span className="font-heading text-2xl text-soil-900 font-bold tracking-tight">FarmChain</span>
         </div>
         

@@ -9,7 +9,9 @@ export const Footer: React.FC = () => {
         {/* Brand */}
         <div className="md:col-span-1">
           <div className="flex items-center gap-3 mb-6">
-            <img src="/logo.png" alt="FarmChain Logo" className="w-10 h-10 object-contain" />
+            <div className="bg-white p-1 rounded-full shadow-sm flex items-center justify-center">
+              <img src="/logo.png" alt="FarmChain Logo" className="w-10 h-10 object-contain rounded-full" />
+            </div>
             <span className="font-heading text-2xl font-bold">FarmChain</span>
           </div>
           <p className="font-body text-sm max-w-xs">

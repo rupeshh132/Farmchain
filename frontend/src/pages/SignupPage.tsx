@@ -46,7 +46,7 @@ export const SignupPage: React.FC = () => {
       <div className="w-full max-w-md relative z-10 animate-fade-in-up pt-16">
         <div className="bg-white/80 backdrop-blur-xl border border-white/50 p-8 md:p-10 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <img src="/logo.png" alt="FarmChain Logo" className="w-12 h-12 object-contain" />
+            <img src="/logo.png" alt="FarmChain Logo" className="w-12 h-12 object-contain mix-blend-multiply" />
             <span className="font-heading text-3xl font-bold text-soil-900 tracking-tight">FarmChain</span>
           </div>
           
