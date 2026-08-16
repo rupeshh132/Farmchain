@@ -41,7 +41,7 @@ export const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-soil-950 -mt-16 selection:bg-primary/30">
+    <div className="min-h-screen bg-soil-950 -mt-24 selection:bg-primary/30">
       {/* 1. Hero Section - Cinematic Scroll Expand */}
       <ScrollExpand
         src={heroImage}

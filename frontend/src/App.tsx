@@ -24,7 +24,7 @@ function App() {
   return (
     <BrowserRouter>
         <Navbar />
-        <div className="pt-16 min-h-screen flex flex-col">
+        <div className="pt-24 min-h-screen flex flex-col">
           <div className="flex-1">
             <Routes>
               <Route path="/" element={<LandingPage />} />
