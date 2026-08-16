@@ -1,5 +1,5 @@
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
-import { motion, AnimatePresence, Transition, Variant } from 'motion/react';
+import { motion, AnimatePresence, type Transition, type Variant } from 'motion/react';
 import './RotatingText.css';
 
 function cn(...classes: (string | undefined | null | false)[]) {
