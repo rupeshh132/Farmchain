@@ -11,6 +11,8 @@ import step3Image from '../assets/images/mandi-market-morning.jpg';
 import { GlassIcons, type GlassIconsItem } from '../components/ui/GlassIcons';
 import { AccordionGallery } from '../components/ui/AccordionGallery';
 
+import { ScrollExpand } from '../components/ui/ScrollExpand';
+
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
@@ -31,30 +33,33 @@ export const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-cream -mt-16 selection:bg-primary/30">
-      {/* 1. Hero Section - Massive Upgrade */}
-      <section 
-        className="relative min-h-[90vh] flex items-center pt-24 pb-12 px-6 md:px-12 bg-cover bg-center overflow-hidden"
-        style={{ backgroundImage: `url(${heroImage})` }}
+    <div className="min-h-screen bg-soil-950 -mt-16 selection:bg-primary/30">
+      {/* 1. Hero Section - Cinematic Scroll Expand */}
+      <ScrollExpand
+        src={heroImage}
+        title="FARMCHAIN"
+        scrollHint="SCROLL TO EXPLORE"
+        useWindowScroll={true}
+        startWidth={60}
+        startHeight={60}
+        mediaZoom={1.3}
+        scrollDistance={1.2}
       >
-        {/* Aggressive gradient for 100% text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-soil-950 via-soil-900/90 to-soil-900/40" />
-        
-        <div className="relative z-10 max-w-4xl animate-fade-in-up">
+        <div className="max-w-4xl mx-auto flex flex-col items-center text-center animate-fade-in-up mt-16 pointer-events-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary-light border border-primary/30 mb-6 text-sm font-medium backdrop-blur-md">
             <Zap size={16} className="text-yellow-400 fill-yellow-400" />
             Welcome to the future of farming
           </div>
-          <h1 className="text-white text-5xl md:text-7xl font-heading font-bold mb-6 leading-[1.1] tracking-tight">
+          <h1 className="text-white text-5xl md:text-7xl font-heading font-bold mb-6 leading-[1.1] tracking-tight text-balance">
             Agricultural intelligence <br className="hidden md:block"/>for every decision.
           </h1>
-          <p className="text-cream/90 font-body text-xl md:text-2xl mb-10 max-w-2xl font-light leading-relaxed">
+          <p className="text-cream/90 font-body text-xl md:text-2xl mb-10 max-w-2xl font-light leading-relaxed text-balance">
             From soil preparation to market sale. Get AI-driven recommendations, scan crops for diseases, and trace your produce on the blockchain.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
               onClick={handleCTA}
-              className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-heading font-medium text-lg rounded-xl overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_-10px_rgba(202,138,4,0.6)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-soil-950"
+              className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-heading font-medium text-lg rounded-xl overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_-10px_rgba(202,138,4,0.6)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-soil-950 pointer-events-auto"
             >
               <span className="relative z-10 flex items-center gap-2">
                 Enter Dashboard <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
@@ -63,13 +68,13 @@ export const LandingPage: React.FC = () => {
             </button>
             <button 
               onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-heading font-medium text-lg rounded-xl backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all"
+              className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-heading font-medium text-lg rounded-xl backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all pointer-events-auto"
             >
               See how it works
             </button>
           </div>
         </div>
-      </section>
+      </ScrollExpand>
 
       {/* 2. Interactive Glass Features Grid */}
       <section className="bg-soil-950 py-16 border-y border-soil-800">
