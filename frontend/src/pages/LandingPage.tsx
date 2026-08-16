@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { demoLogin } from '../api/auth';
-import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
+import { TrendingUp, Camera, ShieldCheck, ArrowRight, Brain, Zap } from 'lucide-react';
 
 import heroImage from '../assets/images/hero-field-morning.jpg';
 import step1Image from '../assets/images/farmer-sowing-field.jpg';
@@ -12,100 +12,171 @@ import step3Image from '../assets/images/mandi-market-morning.jpg';
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
+  const handleCTA = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/dashboard');
+    } else {
+      const success = await demoLogin();
+      if (success) navigate('/dashboard');
+      else alert('Demo login failed. Please ensure backend is running.');
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-cream -mt-16">
-      {/* Hero Section */}
+    <div className="min-h-screen bg-cream -mt-16 selection:bg-primary/30">
+      {/* 1. Hero Section - Massive Upgrade */}
       <section 
-        className="relative h-screen min-h-[600px] flex items-end pb-24 px-6 md:px-12 bg-cover bg-center"
+        className="relative min-h-[90vh] flex items-center pt-24 pb-12 px-6 md:px-12 bg-cover bg-center overflow-hidden"
         style={{ backgroundImage: `url(${heroImage})` }}
       >
-        {/* Subtle warm gradient overlay ONLY at the bottom third for text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-soil-900/40 via-transparent to-transparent" />
+        {/* Aggressive gradient for 100% text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-soil-950 via-soil-900/90 to-soil-900/40" />
         
-        <div className="relative z-10 max-w-3xl">
-          <h1 className="text-cream text-4xl md:text-6xl font-heading font-medium mb-4 leading-tight">
-            Agricultural intelligence for every decision.
+        <div className="relative z-10 max-w-4xl animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary-light border border-primary/30 mb-6 text-sm font-medium backdrop-blur-md">
+            <Zap size={16} className="text-yellow-400 fill-yellow-400" />
+            Welcome to the future of farming
+          </div>
+          <h1 className="text-white text-5xl md:text-7xl font-heading font-bold mb-6 leading-[1.1] tracking-tight">
+            Agricultural intelligence <br className="hidden md:block"/>for every decision.
           </h1>
-          <p className="text-cream/90 font-body text-lg md:text-xl mb-8 max-w-xl">
-            From soil to market. Get data-driven recommendations, track costs, and connect directly with buyers.
+          <p className="text-cream/90 font-body text-xl md:text-2xl mb-10 max-w-2xl font-light leading-relaxed">
+            From soil preparation to market sale. Get AI-driven recommendations, scan crops for diseases, and trace your produce on the blockchain.
           </p>
-          <div className="flex gap-4">
-            <Button variant="secondary" onClick={async () => {
-              const token = localStorage.getItem('token');
-              if (token) {
-                navigate('/dashboard');
-              } else {
-                const success = await demoLogin();
-                if (success) navigate('/dashboard');
-                else alert('Demo login failed. Please ensure backend is running.');
-              }
-            }}>
-              Go to Dashboard
-            </Button>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button 
+              onClick={handleCTA}
+              className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-heading font-medium text-lg rounded-xl overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_-10px_rgba(202,138,4,0.6)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-soil-950"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                Enter Dashboard <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              </span>
+              <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+            </button>
+            <button 
+              onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
+              className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-heading font-medium text-lg rounded-xl backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all"
+            >
+              See how it works
+            </button>
           </div>
         </div>
       </section>
 
-      {/* How it Works Section */}
+      {/* 2. Trust Bar */}
+      <div className="bg-soil-950 py-6 border-y border-soil-800">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-wrap justify-center gap-x-12 gap-y-6 text-cream/60 font-mono text-sm uppercase tracking-wider">
+          <div className="flex items-center gap-2"><Brain size={18} className="text-primary"/> AI Yield Prediction</div>
+          <div className="flex items-center gap-2"><ShieldCheck size={18} className="text-primary"/> Immutable Traceability</div>
+          <div className="flex items-center gap-2"><TrendingUp size={18} className="text-primary"/> Live Mandi APIs</div>
+        </div>
+      </div>
+
+      {/* 3. Core Features Showcase */}
       <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-heading text-soil-900 mb-12 text-center">
-          How FarmChain Works
-        </h2>
-        
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-heading text-soil-900 mb-4 font-bold tracking-tight">Everything you need to grow</h2>
+          <p className="text-xl text-soil-600 font-body max-w-2xl mx-auto">A unified platform that replaces guesswork with data science.</p>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Step 1 */}
-          <Card noPadding className="overflow-hidden flex flex-col">
-            <div className="h-64 w-full relative">
-              <img 
-                src={step1Image} 
-                alt="Farmer sowing field" 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-soil-900/10" />
+          {[
+            { icon: TrendingUp, title: 'Smart Yield Prediction', desc: 'Our ML models analyze your soil profile and local weather to predict your exact crop yield before you even sow.' },
+            { icon: Camera, title: 'AI Disease Detection', desc: 'Snap a picture of a diseased leaf. Our deep learning engine instantly identifies the pathogen and suggests treatments.' },
+            { icon: ShieldCheck, title: 'Blockchain Traceability', desc: 'Generate QR codes for your harvest. Buyers can scan to view the complete immutable history of your produce.' }
+          ].map((feature, idx) => (
+            <div key={idx} className="group p-8 rounded-2xl bg-white border border-border hover:border-primary/50 transition-all hover:shadow-xl hover:-translate-y-1">
+              <div className="h-14 w-14 rounded-xl bg-wheat-100 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+                <feature.icon size={28} className="text-primary" />
+              </div>
+              <h3 className="text-2xl font-heading text-soil-900 mb-3">{feature.title}</h3>
+              <p className="text-soil-600 font-body leading-relaxed">{feature.desc}</p>
             </div>
-            <div className="p-6 flex-1 flex flex-col justify-center">
-              <h3 className="font-heading text-xl text-soil-900 mb-2">1. Profile your Farm</h3>
-              <p className="text-soil-700 font-body">
-                Map your land and enter your soil type and water availability.
-              </p>
-            </div>
-          </Card>
+          ))}
+        </div>
+      </section>
 
-          {/* Step 2 */}
-          <Card noPadding className="overflow-hidden flex flex-col">
-            <div className="h-64 w-full relative">
-              <img 
-                src={step2Image} 
-                alt="Close-up of soil" 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-soil-900/10" />
-            </div>
-            <div className="p-6 flex-1 flex flex-col justify-center">
-              <h3 className="font-heading text-xl text-soil-900 mb-2">2. Get Recommendations</h3>
-              <p className="text-soil-700 font-body">
-                Receive data-backed crop choices and task schedules for your specific conditions.
-              </p>
-            </div>
-          </Card>
+      {/* 4. Enhanced "How it Works" Section */}
+      <section id="how-it-works" className="py-24 px-6 md:px-12 bg-wheat-50 border-t border-border">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-heading text-soil-900 mb-4 font-bold tracking-tight">How FarmChain Works</h2>
+            <p className="text-xl text-soil-600 font-body">Three simple steps to maximize your agricultural output.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Step 1 */}
+            <Card noPadding className="group overflow-hidden flex flex-col border-none shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer bg-white">
+              <div className="h-64 w-full relative overflow-hidden">
+                <img 
+                  src={step1Image} 
+                  alt="Farmer sowing field" 
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-soil-950/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                <div className="absolute bottom-4 left-6 text-white font-heading text-5xl opacity-30 font-bold">01</div>
+              </div>
+              <div className="p-8 flex-1 flex flex-col justify-center">
+                <h3 className="font-heading text-2xl text-soil-900 mb-3 group-hover:text-primary transition-colors">Profile your Farm</h3>
+                <p className="text-soil-600 font-body leading-relaxed">
+                  Map your land digitally. Enter your soil composition, pH levels, and water availability to build your farm's digital twin.
+                </p>
+              </div>
+            </Card>
 
-          {/* Step 3 */}
-          <Card noPadding className="overflow-hidden flex flex-col">
-            <div className="h-64 w-full relative">
-              <img 
-                src={step3Image} 
-                alt="Busy mandi market" 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-soil-900/10" />
-            </div>
-            <div className="p-6 flex-1 flex flex-col justify-center">
-              <h3 className="font-heading text-xl text-soil-900 mb-2">3. Track the Market</h3>
-              <p className="text-soil-700 font-body">
-                Monitor real-time mandi prices and harvest at the optimal time for the best return.
-              </p>
-            </div>
-          </Card>
+            {/* Step 2 */}
+            <Card noPadding className="group overflow-hidden flex flex-col border-none shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer bg-white">
+              <div className="h-64 w-full relative overflow-hidden">
+                <img 
+                  src={step2Image} 
+                  alt="Close-up of soil" 
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-soil-950/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                <div className="absolute bottom-4 left-6 text-white font-heading text-5xl opacity-30 font-bold">02</div>
+              </div>
+              <div className="p-8 flex-1 flex flex-col justify-center">
+                <h3 className="font-heading text-2xl text-soil-900 mb-3 group-hover:text-primary transition-colors">Get AI Insights</h3>
+                <p className="text-soil-600 font-body leading-relaxed">
+                  Receive personalized, data-backed crop choices. Track daily tasks, input costs, and weather forecasts specific to your region.
+                </p>
+              </div>
+            </Card>
+
+            {/* Step 3 */}
+            <Card noPadding className="group overflow-hidden flex flex-col border-none shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer bg-white">
+              <div className="h-64 w-full relative overflow-hidden">
+                <img 
+                  src={step3Image} 
+                  alt="Busy mandi market" 
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-soil-950/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                <div className="absolute bottom-4 left-6 text-white font-heading text-5xl opacity-30 font-bold">03</div>
+              </div>
+              <div className="p-8 flex-1 flex flex-col justify-center">
+                <h3 className="font-heading text-2xl text-soil-900 mb-3 group-hover:text-primary transition-colors">Track the Market</h3>
+                <p className="text-soil-600 font-body leading-relaxed">
+                  Monitor real-time mandi prices across states. Harvest and sell at the optimal time for the highest possible return on investment.
+                </p>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+      
+      {/* 5. Final CTA Section */}
+      <section className="py-24 px-6 md:px-12 bg-soil-900 text-center">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-heading text-white mb-6 font-bold">Ready to modernize your farm?</h2>
+          <p className="text-xl text-cream/80 font-body mb-10">Join thousands of farmers using FarmChain to increase yield and secure better market prices.</p>
+          <button 
+            onClick={handleCTA}
+            className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-primary text-white font-heading font-semibold text-xl rounded-xl hover:bg-primary/90 hover:scale-105 transition-all shadow-xl shadow-primary/20"
+          >
+            Start Farming Smarter
+          </button>
         </div>
       </section>
     </div>

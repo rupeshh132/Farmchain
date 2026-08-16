@@ -8,6 +8,8 @@ import TracePage from './pages/TracePage';
 import DiseaseDetectionPage from './pages/DiseaseDetectionPage';
 import { Navbar } from './components/ui/Navbar';
 
+import { Footer } from './components/ui/Footer';
+
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const token = localStorage.getItem('token');
   if (!token) {
@@ -20,16 +22,19 @@ function App() {
   return (
     <BrowserRouter>
         <Navbar />
-        <div className="pt-16">
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-            <Route path="/onboarding/farm" element={<ProtectedRoute><FarmOnboardingPage /></ProtectedRoute>} />
-            <Route path="/calculator" element={<ProtectedRoute><CalculatorPage /></ProtectedRoute>} />
-            <Route path="/recommendations" element={<ProtectedRoute><RecommendationsPage /></ProtectedRoute>} />
-            <Route path="/disease-detection" element={<ProtectedRoute><DiseaseDetectionPage /></ProtectedRoute>} />
-            <Route path="/trace/:qrCode" element={<TracePage />} />
-          </Routes>
+        <div className="pt-16 min-h-screen flex flex-col">
+          <div className="flex-1">
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+              <Route path="/onboarding/farm" element={<ProtectedRoute><FarmOnboardingPage /></ProtectedRoute>} />
+              <Route path="/calculator" element={<ProtectedRoute><CalculatorPage /></ProtectedRoute>} />
+              <Route path="/recommendations" element={<ProtectedRoute><RecommendationsPage /></ProtectedRoute>} />
+              <Route path="/disease-detection" element={<ProtectedRoute><DiseaseDetectionPage /></ProtectedRoute>} />
+              <Route path="/trace/:qrCode" element={<TracePage />} />
+            </Routes>
+          </div>
+          <Footer />
         </div>
     </BrowserRouter>
   );
