@@ -16,6 +16,10 @@ import RotatingText from '../components/ui/RotatingText';
 import BlurText from '../components/ui/BlurText';
 import { ShinyText } from '../components/ui/ShinyText';
 import { TextPressure } from '../components/ui/TextPressure';
+import { MarketTicker } from '../components/ui/MarketTicker';
+import { ProfitCalculator } from '../components/ui/ProfitCalculator';
+import { ComparisonSlider } from '../components/ui/ComparisonSlider';
+import { TestimonialMarquee } from '../components/ui/TestimonialMarquee';
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -96,6 +100,9 @@ export const LandingPage: React.FC = () => {
         </div>
       </ScrollExpand>
 
+      {/* 1.5 Real-time Market Ticker */}
+      <MarketTicker />
+
       {/* 2. Interactive Glass Features Grid */}
       <section className="bg-soil-950 py-16 border-y border-soil-800">
         <div className="max-w-7xl mx-auto px-6 md:px-12 text-center mb-8">
@@ -128,6 +135,13 @@ export const LandingPage: React.FC = () => {
           ))}
         </div>
       </section>
+
+      {/* 3.5 Before & After AI Comparison */}
+      <ComparisonSlider 
+        beforeImage="/farm_traditional.jpg"
+        afterImage="/farm_ai_overlay.jpg"
+      />
+
       {/* 4. Enhanced "How it Works" Section */}
       <section id="how-it-works" className="py-24 px-6 md:px-12 bg-wheat-50 border-t border-border">
         <div className="max-w-7xl mx-auto">
@@ -162,6 +176,12 @@ export const LandingPage: React.FC = () => {
           />
         </div>
       </section>
+      
+      {/* 4.5 Profit Calculator */}
+      <ProfitCalculator />
+
+      {/* 4.6 Scrolling Testimonials */}
+      <TestimonialMarquee />
       
       {/* 5. Final CTA Section */}
       <section className="py-24 px-6 md:px-12 bg-soil-900 text-center">
