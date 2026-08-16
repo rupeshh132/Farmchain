@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { GripVertical } from 'lucide-react';
+import MaskedHeading from './MaskedHeading';
 
 interface ComparisonSliderProps {
   beforeImage: string;
@@ -54,8 +55,14 @@ export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({
 
   return (
     <div className="w-full max-w-6xl mx-auto px-6 md:px-12 py-24">
-      <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-heading text-soil-900 mb-4 font-bold">See the Difference</h2>
+      <div className="text-center mb-12 flex flex-col items-center">
+        <MaskedHeading 
+          text="See the Difference" 
+          src="/farm_traditional.jpg" 
+          className="text-4xl md:text-6xl font-heading mb-4 font-bold max-w-4xl"
+          parallax={30}
+          fillScale={1.5}
+        />
         <p className="text-xl text-soil-700 font-body max-w-2xl mx-auto">
           Drag the slider to see how FarmChain's precision AI reveals the hidden potential in your fields.
         </p>
