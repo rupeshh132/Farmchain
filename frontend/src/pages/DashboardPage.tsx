@@ -4,6 +4,7 @@ import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { CloudRain, TriangleAlert, Sprout, TrendingUp, IndianRupee, Wind, Droplets, CheckCircle2, Package, ShieldCheck, Sparkles, Camera, Calculator, MapPin } from 'lucide-react';
 import { GlassIcons, type GlassIconsItem } from '../components/ui/GlassIcons';
+import { TextType } from '../components/ui/TextType';
 import { getFarms, type Farm } from '../api/farm';
 import { getFarmWeather, type DashboardWeatherResponse } from '../api/weather';
 import { getActivePlan, completeTask, getYieldPrediction, type FarmingPlan, type YieldPredictionDto } from '../api/plan';
@@ -142,6 +143,16 @@ export const DashboardPage: React.FC = () => {
             Today
             <NotificationBell />
           </h1>
+          <div className="h-6 mt-1 mb-2">
+            <TextType 
+              text={['Analyzing soil moisture...', 'Scanning for crop diseases...', 'Calculating optimal harvest time...', 'Tracking real-time mandi prices...']}
+              typingSpeed={50}
+              pauseDuration={2000}
+              showCursor={true}
+              cursorCharacter="|"
+              className="text-primary font-mono text-xs md:text-sm uppercase tracking-wide font-semibold"
+            />
+          </div>
           <p className="text-soil-700 font-mono text-sm uppercase tracking-wider flex justify-between items-center w-full">
             {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' })}
           </p>
@@ -150,6 +161,7 @@ export const DashboardPage: React.FC = () => {
 
       {/* Quick Actions 3D Grid */}
       <div className="mb-10">
+        {console.log('Rendering Quick Actions GlassIcons')}
         <GlassIcons items={quickActions} />
       </div>
 

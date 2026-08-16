@@ -13,6 +13,9 @@ import { AccordionGallery } from '../components/ui/AccordionGallery';
 
 import { ScrollExpand } from '../components/ui/ScrollExpand';
 import RotatingText from '../components/ui/RotatingText';
+import BlurText from '../components/ui/BlurText';
+import { ShinyText } from '../components/ui/ShinyText';
+import { TextPressure } from '../components/ui/TextPressure';
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -49,7 +52,7 @@ export const LandingPage: React.FC = () => {
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center animate-fade-in-up mt-16 pointer-events-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary-light border border-primary/30 mb-6 text-sm font-medium backdrop-blur-md">
             <Zap size={16} className="text-yellow-400 fill-yellow-400" />
-            Welcome to the future of farming
+            <ShinyText text="Welcome to the future of farming" disabled={false} speed={3} color="#a3e635" shineColor="#ffffff" />
           </div>
           <h1 className="text-white text-5xl md:text-7xl font-heading font-bold mb-6 leading-[1.1] tracking-tight text-balance">
             Agricultural intelligence <br className="hidden md:block"/>for every{' '}
@@ -66,9 +69,13 @@ export const LandingPage: React.FC = () => {
               rotationInterval={3000}
             />
           </h1>
-          <p className="text-cream/90 font-body text-xl md:text-2xl mb-10 max-w-2xl font-light leading-relaxed text-balance">
-            From soil preparation to market sale. Get AI-driven recommendations, scan crops for diseases, and trace your produce on the blockchain.
-          </p>
+          <BlurText
+            text="From soil preparation to market sale. Get AI-driven recommendations, scan crops for diseases, and trace your produce on the blockchain."
+            delay={30}
+            animateBy="words"
+            direction="top"
+            className="text-cream/90 font-body text-xl md:text-2xl mb-10 max-w-2xl font-light leading-relaxed text-balance justify-center"
+          />
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
               onClick={handleCTA}
@@ -168,6 +175,21 @@ export const LandingPage: React.FC = () => {
             Start Farming Smarter
           </button>
         </div>
+      </section>
+      
+      {/* 6. Massive Footer Interactive Text */}
+      <section className="bg-soil-950 pb-12 pt-8 w-full overflow-hidden h-[300px] md:h-[400px]">
+        <TextPressure 
+          text="FARMCHAIN" 
+          flex={true} 
+          alpha={false} 
+          stroke={false} 
+          width={true} 
+          weight={true} 
+          italic={true} 
+          textColor="#F7F3EA"
+          minFontSize={48}
+        />
       </section>
     </div>
   );
