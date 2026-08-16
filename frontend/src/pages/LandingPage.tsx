@@ -9,6 +9,7 @@ import step2Image from '../assets/images/soil-hand-closeup.jpg';
 import step3Image from '../assets/images/mandi-market-morning.jpg';
 
 import { GlassIcons, type GlassIconsItem } from '../components/ui/GlassIcons';
+import { AccordionGallery } from '../components/ui/AccordionGallery';
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -102,11 +103,6 @@ export const LandingPage: React.FC = () => {
           ))}
         </div>
       </section>
-
-import { AccordionGallery, type AccordionGalleryItem } from '../components/ui/AccordionGallery';
-
-// ... further down
-
       {/* 4. Enhanced "How it Works" Section */}
       <section id="how-it-works" className="py-24 px-6 md:px-12 bg-wheat-50 border-t border-border">
         <div className="max-w-7xl mx-auto">
