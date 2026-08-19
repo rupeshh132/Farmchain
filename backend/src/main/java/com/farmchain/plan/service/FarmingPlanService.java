@@ -8,11 +8,13 @@ import com.farmchain.farm.entity.Farm;
 import com.farmchain.farm.repository.FarmRepository;
 import com.farmchain.plan.dto.FarmingPlanDto;
 import com.farmchain.plan.dto.FarmingTaskDto;
+import com.farmchain.plan.dto.CreateCustomTaskRequest;
 import com.farmchain.plan.dto.PlanCreateRequest;
 import com.farmchain.plan.entity.FarmingPlan;
 import com.farmchain.plan.entity.FarmingTask;
 import com.farmchain.plan.repository.FarmingPlanRepository;
 import com.farmchain.plan.repository.FarmingTaskRepository;
+import com.farmchain.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +33,7 @@ public class FarmingPlanService {
     private final FarmRepository farmRepository;
     private final CropRepository cropRepository;
     private final CropVarietyRepository varietyRepository;
+    private final NotificationService notificationService;
 
     @Transactional
     public FarmingPlanDto createPlan(UUID farmId, PlanCreateRequest request) {
@@ -83,6 +86,7 @@ public class FarmingPlanService {
         return getActivePlan(farmId);
     }
 
+    @Transactional(readOnly = true)
     public FarmingPlanDto getActivePlan(UUID farmId) {
         return planRepository.findFirstByFarmIdAndStatusOrderByCreatedAtDesc(farmId, "ACTIVE")
                 .map(plan -> {
@@ -94,6 +98,7 @@ public class FarmingPlanService {
                                     .title(t.getTitle())
                                     .dueDate(t.getDueDate())
                                     .isCompleted(t.getIsCompleted())
+                                    .notes(t.getNotes())
                                     .build())
                             .collect(Collectors.toList());
 
@@ -116,5 +121,37 @@ public class FarmingPlanService {
                 .orElseThrow(() -> new IllegalArgumentException("Task not found"));
         task.setIsCompleted(true);
         taskRepository.save(task);
+        
+        notificationService.createNotification(
+                task.getPlan().getFarm().getOwner(),
+                "TASK_UPDATE",
+                "Task completed: " + task.getTitle()
+        );
+    }
+
+    @Transactional
+    public FarmingTaskDto createCustomTask(UUID farmId, CreateCustomTaskRequest request) {
+        FarmingPlan plan = planRepository.findFirstByFarmIdAndStatusOrderByCreatedAtDesc(farmId, "ACTIVE")
+                .orElseThrow(() -> new IllegalArgumentException("No active farming plan found to attach tasks."));
+                
+        FarmingTask task = FarmingTask.builder()
+                .plan(plan)
+                .taskType("CUSTOM")
+                .title(request.getTitle())
+                .notes(request.getNotes())
+                .dueDate(request.getDueDate())
+                .isCompleted(false)
+                .build();
+                
+        task = taskRepository.save(task);
+        
+        return FarmingTaskDto.builder()
+                .id(task.getId())
+                .taskType(task.getTaskType())
+                .title(task.getTitle())
+                .dueDate(task.getDueDate())
+                .isCompleted(task.getIsCompleted())
+                .notes(task.getNotes())
+                .build();
     }
 }

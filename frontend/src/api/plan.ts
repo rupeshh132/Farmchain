@@ -6,6 +6,7 @@ export interface FarmingTask {
     title: string;
     dueDate: string;
     isCompleted: boolean;
+    notes?: string;
 }
 
 export interface FarmingPlan {
@@ -63,6 +64,17 @@ export const completeTask = async (taskId: string): Promise<void> => {
     });
     const result = await response.json();
     if (!result.success) throw new Error(result.error?.message || 'Failed to complete task');
+};
+
+export const createCustomTask = async (farmId: string, title: string, dueDate: string, notes?: string): Promise<FarmingTask> => {
+    const response = await fetch(`${API_BASE}/farms/${farmId}/tasks`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify({ title, dueDate, notes })
+    });
+    const result = await response.json();
+    if (!result.success) throw new Error(result.error?.message || 'Failed to create task');
+    return result.data;
 };
 
 export const getYieldPrediction = async (planId: string): Promise<YieldPredictionDto> => {

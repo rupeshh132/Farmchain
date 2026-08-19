@@ -41,6 +41,16 @@ public class User {
     @Builder.Default
     private String preferredLanguage = "en";
 
+    @Column(name = "profile_photo_url", columnDefinition = "TEXT")
+    private String profilePhotoUrl;
+
+    @Column(name = "firebase_uid", unique = true)
+    private String firebaseUid;
+
+    @Column(name = "auth_provider")
+    @Builder.Default
+    private String authProvider = "FIREBASE";
+
     @Column(name = "is_active", nullable = false)
     @Builder.Default
     private boolean isActive = true;

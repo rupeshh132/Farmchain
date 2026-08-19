@@ -13,4 +13,5 @@ public class FarmingTaskDto {
     private String title;
     private LocalDate dueDate;
     private Boolean isCompleted;
+    private String notes;
 }

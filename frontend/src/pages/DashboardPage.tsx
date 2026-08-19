@@ -125,7 +125,7 @@ export const DashboardPage: React.FC = () => {
     { name: 'Pending', value: pendingTasks, fill: '#E5E7EB' },
   ];
 
-  const StatCard = ({ title, value, iconBg, bg, text, label }: any) => (
+  const StatCard = ({ title, value, bg, label }: any) => (
     <div className={`p-5 rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border ${bg === 'bg-soil-900' ? 'border-transparent text-white' : 'border-soil-100 bg-white text-soil-900'} flex flex-col justify-between h-40 relative overflow-hidden group`}>
       <div className="flex justify-between items-start">
         <h3 className={`text-sm font-sans font-medium ${bg === 'bg-soil-900' ? 'text-cream/90' : 'text-soil-600'}`}>{title}</h3>
@@ -230,7 +230,7 @@ export const DashboardPage: React.FC = () => {
                <p className="text-soil-500 text-sm font-sans italic text-center py-4">No harvested batches yet.</p>
             ) : (
                <div className="flex flex-col gap-4">
-                 {batches.slice(0, 3).map((b, idx) => (
+                 {batches.slice(0, 3).map((b) => (
                    <div key={b.id} className="flex items-center justify-between p-3 border border-soil-100 rounded-xl hover:bg-soil-50 transition-colors cursor-pointer" onClick={() => navigate(`/trace/${b.qrCode}`)}>
                      <div>
                        <h4 className="font-sans font-bold text-soil-900 text-sm">{b.cropName}</h4>
@@ -357,7 +357,7 @@ export const DashboardPage: React.FC = () => {
                    <p className="text-xs">All tasks completed!</p>
                 </div>
               ) : (
-                activePlan.tasks.filter(t => !t.isCompleted).map((task, idx) => (
+                activePlan.tasks.filter(t => !t.isCompleted).map((task) => (
                   <div key={task.id} className="p-3 border border-soil-100 rounded-xl hover:border-soil-300 transition-colors group">
                     <h4 className="font-sans font-bold text-soil-900 text-xs mb-1 group-hover:text-primary transition-colors">{task.title}</h4>
                     <p className="font-sans text-[9px] text-soil-500 mb-3">Due: {new Date(task.dueDate).toLocaleDateString('en-IN')}</p>

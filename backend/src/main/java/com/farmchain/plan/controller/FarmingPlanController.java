@@ -44,4 +44,10 @@ public class FarmingPlanController {
         com.farmchain.plan.dto.YieldPredictionDto dto = yieldPredictionService.getOrPredictYield(planId);
         return ResponseEntity.ok(ApiResponse.ok(dto));
     }
+    @PostMapping("/farms/{farmId}/tasks")
+    public ResponseEntity<ApiResponse<com.farmchain.plan.dto.FarmingTaskDto>> createCustomTask(
+            @PathVariable UUID farmId, 
+            @jakarta.validation.Valid @RequestBody com.farmchain.plan.dto.CreateCustomTaskRequest request) {
+        return ResponseEntity.ok(ApiResponse.ok(planService.createCustomTask(farmId, request)));
+    }
 }

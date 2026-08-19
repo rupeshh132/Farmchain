@@ -7,6 +7,7 @@ import com.farmchain.disease.entity.DiseaseScan;
 import com.farmchain.disease.repository.DiseaseScanRepository;
 import com.farmchain.farm.entity.Farm;
 import com.farmchain.farm.repository.FarmRepository;
+import com.farmchain.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
@@ -36,6 +37,7 @@ public class DiseaseDetectionService {
     private final DiseaseScanRepository scanRepository;
     private final FarmRepository farmRepository;
     private final CropRepository cropRepository;
+    private final NotificationService notificationService;
     
     // In a real app, inject this via config
     private final String ML_SERVICE_URL = "http://localhost:8000/predict/disease";
@@ -104,6 +106,12 @@ public class DiseaseDetectionService {
                 .build();
                 
         scan = scanRepository.save(scan);
+        
+        notificationService.createNotification(
+                farm.getOwner(),
+                "DISEASE_ALERT",
+                "Disease scan completed for " + crop.getName() + ". Result: " + predictedDisease
+        );
 
         return mapToDto(scan);
     }

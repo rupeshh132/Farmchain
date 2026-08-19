@@ -41,6 +41,14 @@ public class AuthDtos {
             @NotBlank(message = "Refresh token is required")
             String refreshToken
     ) {}
+    
+    public record FirebaseLoginRequest(
+            @NotBlank(message = "Firebase token is required")
+            String firebaseToken,
+            String fullName,
+            String phone,
+            String role
+    ) {}
 
     /** Response for login + refresh */
     public record AuthResponse(

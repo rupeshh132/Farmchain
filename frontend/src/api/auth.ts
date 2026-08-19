@@ -28,6 +28,20 @@ export const register = async (data: any) => {
     return result;
 };
 
+export const firebaseLogin = async (firebaseToken: string, fullName?: string, phone?: string, role?: string) => {
+    const response = await fetch(`${API_BASE}/firebase-login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firebaseToken, fullName, phone, role })
+    });
+    
+    const result = await response.json();
+    if (!response.ok) {
+        throw new Error(result.message || 'Firebase login failed');
+    }
+    return result;
+};
+
 // Deprecated: Keeping just in case something breaks while migrating, but we shouldn't use it.
 export const demoLogin = async () => {
     try {

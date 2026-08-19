@@ -5,6 +5,8 @@ import com.farmchain.auth.entity.RefreshToken;
 import com.farmchain.auth.entity.User;
 import com.farmchain.auth.repository.RefreshTokenRepository;
 import com.farmchain.auth.repository.UserRepository;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -91,6 +93,64 @@ public class AuthService {
         refreshTokenRepository.save(stored);
 
         return buildAuthResponse(stored.getUser());
+    }
+
+    @Transactional
+    public AuthDtos.AuthResponse firebaseLogin(AuthDtos.FirebaseLoginRequest request) {
+        try {
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(request.firebaseToken());
+            String uid = decodedToken.getUid();
+            String email = decodedToken.getEmail();
+            String name = decodedToken.getName();
+            if (name == null || name.isEmpty()) {
+                name = "FarmChain User";
+            }
+            if (email == null) {
+                // If they logged in with phone, we might not have an email
+                email = uid + "@phone.farmchain.local";
+            }
+
+            final String finalEmail = email.toLowerCase().trim();
+            final String finalName = name;
+
+            User user = userRepository.findByFirebaseUid(uid)
+                    .orElseGet(() -> userRepository.findByEmail(finalEmail)
+                            .map(existingUser -> {
+                                // Link existing email user to firebase
+                                existingUser.setFirebaseUid(uid);
+                                existingUser.setAuthProvider("FIREBASE");
+                                return userRepository.save(existingUser);
+                            })
+                            .orElseGet(() -> {
+                                // Create brand new user
+                                String finalRole = (request.role() != null) ? request.role().toUpperCase() : "FARMER";
+                                User.Role role;
+                                try {
+                                    role = User.Role.valueOf(finalRole);
+                                } catch (Exception ex) {
+                                    role = User.Role.FARMER;
+                                }
+
+                                User newUser = User.builder()
+                                        .fullName(request.fullName() != null && !request.fullName().isEmpty() ? request.fullName() : finalName)
+                                        .email(finalEmail)
+                                        .phone(request.phone())
+                                        .passwordHash(passwordEncoder.encode(UUID.randomUUID().toString())) // Dummy pass
+                                        .role(role)
+                                        .firebaseUid(uid)
+                                        .authProvider("FIREBASE")
+                                        .build();
+                                return userRepository.save(newUser);
+                            }));
+
+            if (!user.isActive()) {
+                throw new BadCredentialsException("Account is deactivated");
+            }
+
+            return buildAuthResponse(user);
+        } catch (Exception e) {
+            throw new BadCredentialsException("Invalid Firebase token", e);
+        }
     }
 
     // ── Helpers ─────────────────────────────────────────────────────────────

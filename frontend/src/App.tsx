@@ -2,8 +2,12 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import { AnimatePresence } from 'motion/react';
 import { LandingPage } from './pages/LandingPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { TasksPage } from './pages/dashboard/TasksPage';
+import { CalendarPage } from './pages/dashboard/CalendarPage';
+import { AnalyticsPage } from './pages/dashboard/AnalyticsPage';
 import { LoginPage } from './pages/LoginPage';
 import { SignupPage } from './pages/SignupPage';
+import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { FarmOnboardingPage } from './pages/FarmOnboardingPage';
 import { CalculatorPage } from './pages/CalculatorPage';
 import { RecommendationsPage } from './pages/RecommendationsPage';
@@ -44,7 +48,11 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+        <Route path="/tasks" element={<ProtectedRoute><TasksPage /></ProtectedRoute>} />
+        <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
+        <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
         <Route path="/onboarding/farm" element={<ProtectedRoute><FarmOnboardingPage /></ProtectedRoute>} />
         <Route path="/calculator" element={<ProtectedRoute><CalculatorPage /></ProtectedRoute>} />
         <Route path="/net-realization" element={<ProtectedRoute><NetRealizationPage /></ProtectedRoute>} />
@@ -74,7 +82,7 @@ import { DashboardLayout } from './components/dashboard/DashboardLayout';
 
 const AppLayout = () => {
   const location = useLocation();
-  const isAuthPage = ['/login', '/signup'].includes(location.pathname);
+  const isAuthPage = ['/login', '/signup', '/forgot-password'].includes(location.pathname);
   const isDashboardRoute = ['/dashboard', '/tasks', '/calendar', '/analytics', '/team'].includes(location.pathname);
 
   if (isDashboardRoute) {

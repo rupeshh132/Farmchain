@@ -4,6 +4,7 @@ import com.farmchain.farm.entity.Farm;
 import com.farmchain.weather.entity.WeatherAlert;
 import com.farmchain.weather.entity.WeatherData;
 import com.farmchain.weather.repository.WeatherAlertRepository;
+import com.farmchain.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 public class WeatherRuleEngine {
 
     private final WeatherAlertRepository weatherAlertRepository;
+    private final NotificationService notificationService;
 
     public void evaluateRules(Farm farm, WeatherData data) {
         // Rule 1: Heavy rain alert
@@ -45,6 +47,12 @@ public class WeatherRuleEngine {
                     .severity(severity)
                     .build();
             weatherAlertRepository.save(alert);
+            
+            notificationService.createNotification(
+                    farm.getOwner(),
+                    "WEATHER_ALERT",
+                    "Weather Alert: " + message
+            );
         }
     }
 }

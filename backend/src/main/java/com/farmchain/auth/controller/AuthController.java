@@ -51,4 +51,16 @@ public class AuthController {
         AuthDtos.AuthResponse response = authService.refresh(request);
         return ResponseEntity.ok(ApiResponse.ok(response));
     }
+
+    /**
+     * POST /api/v1/auth/firebase-login
+     * Login using Firebase ID token (Google, Phone, Email)
+     */
+    @PostMapping("/firebase-login")
+    public ResponseEntity<ApiResponse<AuthDtos.AuthResponse>> firebaseLogin(
+            @Valid @RequestBody AuthDtos.FirebaseLoginRequest request
+    ) {
+        AuthDtos.AuthResponse response = authService.firebaseLogin(request);
+        return ResponseEntity.ok(ApiResponse.ok(response));
+    }
 }
