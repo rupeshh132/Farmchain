@@ -98,7 +98,7 @@ export default function TracePage() {
                   <div className={`absolute w-4 h-4 bg-primary rounded-full top-1 border-4 border-white shadow-sm left-[-39px] md:left-auto ${isEven ? 'md:-right-2' : 'md:-left-2'}`}></div>
                   
                   <div className="bg-wheat-50 p-4 rounded-lg border border-border">
-                    <span className="text-xs font-medium text-primary uppercase tracking-wider block mb-1">
+                    <span className="text-xs font-medium text-primary tracking-wide block mb-1">
                       {date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                     </span>
                     <h3 className="font-heading text-lg text-soil-900 mb-1">{event.eventType}</h3>
@@ -115,7 +115,7 @@ export default function TracePage() {
                         </div>
                         <a 
                           href="#" 
-                          className="font-mono text-[10px] text-soil-500 hover:text-primary transition-colors bg-white px-2 py-1 rounded border border-border inline-block"
+                          className="font-sans font-medium text-[10px] text-soil-500 hover:text-primary transition-colors bg-white px-2 py-1 rounded border border-border inline-block"
                           title="View on Block Explorer"
                           onClick={(e) => {
                             e.preventDefault();
@@ -134,7 +134,7 @@ export default function TracePage() {
         </div>
 
         <div className="text-center text-sm text-soil-500">
-          <p>Scan ID: <span className="font-mono">{trace.qrCode}</span></p>
+          <p>Scan ID: <span className="font-sans font-medium">{trace.qrCode}</span></p>
           <p className="mt-1">Secured by FarmChain</p>
         </div>
       </div>

@@ -17,16 +17,16 @@ export const MarketTicker: React.FC = () => {
   const tickerItems = [...mockMandiData, ...mockMandiData];
 
   return (
-    <div className="w-full bg-soil-950 border-y border-soil-800 text-cream overflow-hidden py-3 relative z-20 flex items-center shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+    <div className="w-full bg-soil-950 border-y border-soil-800 text-cream overflow-hidden py-3 relative z-20 flex items-center shadow-sm">
       
       {/* "Live" Badge */}
-      <div className="absolute left-0 top-0 bottom-0 bg-soil-950 z-10 px-4 md:px-8 flex items-center border-r border-soil-800 shadow-[20px_0_20px_-10px_rgba(38,30,22,1)]">
+      <div className="absolute left-0 top-0 bottom-0 bg-soil-950 z-10 px-4 md:px-8 flex items-center border-r border-soil-800 shadow-sm">
         <div className="flex items-center gap-2">
           <span className="relative flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
           </span>
-          <span className="font-mono text-sm font-bold tracking-widest text-white hidden md:block">LIVE MANDI</span>
+          <span className="font-sans font-medium text-sm font-bold tracking-widest text-white hidden md:block">LIVE MANDI</span>
         </div>
       </div>
 
@@ -35,9 +35,9 @@ export const MarketTicker: React.FC = () => {
         {tickerItems.map((item, index) => (
           <div key={index} className="flex items-center gap-2 px-6 border-r border-soil-800/50 min-w-max">
             <span className="font-heading font-medium text-cream">{item.crop}</span>
-            <span className="font-mono font-bold">₹{item.price.toLocaleString('en-IN')}<span className="text-xs text-cream/50 font-normal">/qtl</span></span>
+            <span className="font-sans font-medium font-bold">₹{item.price.toLocaleString('en-IN')}<span className="text-xs text-cream/50 font-normal">/qtl</span></span>
             
-            <div className={`flex items-center gap-1 text-xs font-mono font-bold px-1.5 py-0.5 rounded ${item.up ? 'text-leaf-500 bg-leaf-500/10' : 'text-red-400 bg-red-400/10'}`}>
+            <div className={`flex items-center gap-1 text-xs font-sans font-medium font-bold px-1.5 py-0.5 rounded ${item.up ? 'text-leaf-500 bg-leaf-500/10' : 'text-red-400 bg-red-400/10'}`}>
               {item.up ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
               {item.change > 0 ? '+' : ''}{item.change}%
             </div>

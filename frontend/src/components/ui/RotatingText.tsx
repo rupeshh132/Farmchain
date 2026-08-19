@@ -16,9 +16,9 @@ export interface RotatingTextRef {
 export interface RotatingTextProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'initial' | 'animate' | 'exit' | 'transition'> {
   texts: string[];
   transition?: Transition;
-  initial?: Variant;
-  animate?: Variant;
-  exit?: Variant;
+  initial?: any;
+  animate?: any;
+  exit?: any;
   animatePresenceMode?: 'sync' | 'wait' | 'popLayout';
   animatePresenceInitial?: boolean;
   rotationInterval?: number;

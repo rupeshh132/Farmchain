@@ -1,8 +1,15 @@
 import React from 'react';
 import { Sprout, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
+  const location = useLocation();
+  const hiddenRoutes = ['/login', '/signup'];
+  
+  if (hiddenRoutes.includes(location.pathname)) {
+    return null;
+  }
+
   return (
     <footer className="bg-soil-950 text-cream/80 pt-16 pb-8 px-6 md:px-12 border-t border-soil-800">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -23,20 +30,20 @@ export const Footer: React.FC = () => {
         <div>
           <h4 className="font-heading text-lg text-cream mb-4">Product</h4>
           <ul className="space-y-2 text-sm">
-            <li><Link to="/dashboard" className="hover:text-primary transition-colors">Yield Prediction</Link></li>
-            <li><Link to="/dashboard" className="hover:text-primary transition-colors">Disease Detection</Link></li>
-            <li><Link to="/dashboard" className="hover:text-primary transition-colors">Blockchain Traceability</Link></li>
-            <li><Link to="/dashboard" className="hover:text-primary transition-colors">Mandi Prices</Link></li>
+            <li><Link to="/yield-prediction" className="hover:text-primary transition-colors">Yield Prediction</Link></li>
+            <li><Link to="/disease-detection-info" className="hover:text-primary transition-colors">Disease Detection</Link></li>
+            <li><Link to="/traceability" className="hover:text-primary transition-colors">Blockchain Traceability</Link></li>
+            <li><Link to="/mandi-prices" className="hover:text-primary transition-colors">Mandi Prices</Link></li>
           </ul>
         </div>
 
         <div>
           <h4 className="font-heading text-lg text-cream mb-4">Resources</h4>
           <ul className="space-y-2 text-sm">
-            <li><a href="#" className="hover:text-primary transition-colors">Farmer's Guide</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">API Documentation</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Community Forum</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Support Center</a></li>
+            <li><Link to="/farmers-guide" className="hover:text-primary transition-colors">Farmer's Guide</Link></li>
+            <li><Link to="/api-docs" className="hover:text-primary transition-colors">API Documentation</Link></li>
+            <li><Link to="/community" className="hover:text-primary transition-colors">Community Forum</Link></li>
+            <li><Link to="/support" className="hover:text-primary transition-colors">Support Center</Link></li>
           </ul>
         </div>
 

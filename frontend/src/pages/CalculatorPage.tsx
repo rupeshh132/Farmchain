@@ -5,7 +5,7 @@ import { Button } from '../components/ui/Button';
 import { getFarms, type Farm } from '../api/farm';
 import { getCrops, type Crop } from '../api/crop';
 import { calculateRequirements, type CalculatorResponse } from '../api/calculator';
-import { Sprout, Database, Beaker, CheckCircle2 } from 'lucide-react';
+import { Sprout, Database, Beaker, CheckCircle2, TrendingUp } from 'lucide-react';
 
 export const CalculatorPage: React.FC = () => {
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ export const CalculatorPage: React.FC = () => {
     return <Beaker size={18} className="text-sky-600" />;
   };
 
-  if (loading) return <div className="min-h-screen bg-cream flex items-center justify-center font-mono">Loading data...</div>;
+  if (loading) return <div className="min-h-screen bg-cream flex items-center justify-center font-sans font-medium">Loading data...</div>;
 
   return (
     <div className="min-h-screen bg-cream px-4 md:px-8 py-8 md:py-12 max-w-4xl mx-auto">
@@ -124,6 +124,18 @@ export const CalculatorPage: React.FC = () => {
           >
             {calculating ? 'Calculating...' : 'Calculate Inputs'}
           </Button>
+          
+          <div className="mt-8 border-t border-border pt-6">
+            <h3 className="font-heading text-md text-soil-900 mb-2">Want to compare profits?</h3>
+            <p className="font-body text-xs text-soil-600 mb-4">See which crop will yield the highest net return after deducting all input costs.</p>
+            <Button 
+              variant="outline" 
+              className="w-full flex items-center justify-center gap-2 border-leaf-600 text-leaf-700 hover:bg-leaf-50" 
+              onClick={() => navigate('/net-realization')}
+            >
+              <TrendingUp size={16} /> Net Realization Ranking
+            </Button>
+          </div>
         </Card>
 
         <div className="col-span-1 md:col-span-2">
@@ -148,10 +160,10 @@ export const CalculatorPage: React.FC = () => {
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="font-mono text-2xl text-soil-900">
+                      <div className="font-sans font-medium text-2xl text-soil-900">
                         {req.totalRequiredValue} <span className="text-base text-soil-600">{req.unit}</span>
                       </div>
-                      <div className="text-xs text-soil-500 mt-1 font-mono">
+                      <div className="text-xs text-soil-500 mt-1 font-sans font-medium">
                         Base: {req.perHectareValue} {req.unit}/ha
                       </div>
                     </div>

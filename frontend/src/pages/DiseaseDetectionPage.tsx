@@ -117,7 +117,7 @@ export default function DiseaseDetectionPage() {
                 {scanning && (
                   <div className="absolute inset-0 bg-primary/20 flex flex-col items-center justify-center">
                     <div className="w-full h-1 bg-primary/30 absolute top-0 animate-[scan_2s_ease-in-out_infinite]">
-                      <div className="w-full h-full bg-primary shadow-[0_0_8px_2px_rgba(23,163,74,0.8)]"></div>
+                      <div className="w-full h-full bg-primary shadow-sm"></div>
                     </div>
                     <Activity className="text-white animate-pulse" size={48} />
                     <p className="text-white font-medium mt-2 drop-shadow-md">Analyzing with FarmChain AI...</p>
@@ -155,7 +155,7 @@ export default function DiseaseDetectionPage() {
                       {result.predictedDisease}
                     </h3>
                     <p className={`text-sm mt-1 ${isHealthy ? 'text-green-700' : 'text-red-700'}`}>
-                      Confidence: <span className="font-mono font-bold">{(result.confidenceScore * 100).toFixed(0)}%</span>
+                      Confidence: <span className="font-sans font-medium font-bold">{(result.confidenceScore * 100).toFixed(0)}%</span>
                     </p>
                     <div className="mt-4 bg-white/60 p-3 rounded border border-white/40">
                       <p className="text-sm font-medium text-soil-900 mb-1">Recommended Action:</p>
@@ -199,7 +199,7 @@ export default function DiseaseDetectionPage() {
                     <p className="text-xs text-soil-500">{new Date(scan.scannedAt).toLocaleString('en-IN')}</p>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-sm font-mono text-soil-700">{(scan.confidenceScore * 100).toFixed(0)}%</p>
+                    <p className="text-sm font-sans font-medium text-soil-700">{(scan.confidenceScore * 100).toFixed(0)}%</p>
                   </div>
                 </div>
               ))

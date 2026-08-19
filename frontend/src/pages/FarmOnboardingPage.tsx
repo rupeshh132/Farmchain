@@ -153,7 +153,7 @@ export const FarmOnboardingPage: React.FC = () => {
                   min="0.1"
                   value={length}
                   onChange={(e) => setLength(e.target.value)}
-                  className="w-full p-3 border border-border rounded-[4px] bg-cream focus:outline-none focus:border-leaf-500 transition-colors font-mono"
+                  className="w-full p-3 border border-border rounded-[4px] bg-cream focus:outline-none focus:border-leaf-500 transition-colors font-sans font-medium"
                 />
               </div>
               <div>
@@ -165,7 +165,7 @@ export const FarmOnboardingPage: React.FC = () => {
                   min="0.1"
                   value={width}
                   onChange={(e) => setWidth(e.target.value)}
-                  className="w-full p-3 border border-border rounded-[4px] bg-cream focus:outline-none focus:border-leaf-500 transition-colors font-mono"
+                  className="w-full p-3 border border-border rounded-[4px] bg-cream focus:outline-none focus:border-leaf-500 transition-colors font-sans font-medium"
                 />
               </div>
             </div>
@@ -173,7 +173,7 @@ export const FarmOnboardingPage: React.FC = () => {
             <div className="mt-2 p-4 bg-cream/50 border border-border rounded-[4px]">
               <p className="text-sm text-soil-700 mb-1">Real-time Calculation</p>
               {length && width ? (
-                <div className="font-mono text-soil-900">
+                <div className="font-sans font-medium text-soil-900">
                   {unit === 'feet' ? (
                     <p>{(parseFloat(length) * parseFloat(width)).toLocaleString()} sqft</p>
                   ) : (
@@ -182,7 +182,7 @@ export const FarmOnboardingPage: React.FC = () => {
                   <p className="text-xs text-soil-700 mt-1">Exact Area (Acres, Hectares, Bigha) will be calculated on server.</p>
                 </div>
               ) : (
-                <p className="text-sm font-mono text-soil-700">Enter length and width...</p>
+                <p className="text-sm font-sans font-medium text-soil-700">Enter length and width...</p>
               )}
             </div>
 

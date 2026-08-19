@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getFarms, type Farm } from '../api/farm';
 import { getCropRecommendations, type CropRecommendation } from '../api/recommendation';
-import { createFarmingPlan } from '../api/plan';
+import { createFarmingPlan, getActivePlan, type FarmingPlan } from '../api/plan';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ export const RecommendationsPage: React.FC = () => {
   const [farm, setFarm] = useState<Farm | null>(null);
   const [recommendations, setRecommendations] = useState<CropRecommendation[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentPlan, setCurrentPlan] = useState<FarmingPlan | null>(null);
   const [selectedCrop, setSelectedCrop] = useState<CropRecommendation | null>(null);
   const [sowingDate, setSowingDate] = useState(new Date().toISOString().split('T')[0]);
   const navigate = useNavigate();
@@ -21,6 +22,14 @@ export const RecommendationsPage: React.FC = () => {
         const fetchedFarms = await getFarms();
         if (fetchedFarms.length > 0) {
           setFarm(fetchedFarms[0]);
+          
+          try {
+            const plan = await getActivePlan(fetchedFarms[0].id);
+            setCurrentPlan(plan);
+          } catch(e) {
+            // No active plan
+          }
+
           const recs = await getCropRecommendations(fetchedFarms[0].id);
           setRecommendations(recs);
         }
@@ -44,11 +53,11 @@ export const RecommendationsPage: React.FC = () => {
     }
   };
 
-  if (loading) return <div className="min-h-screen bg-cream flex items-center justify-center font-mono">Analyzing farm data...</div>;
+  if (loading) return <div className="min-h-screen bg-cream flex items-center justify-center font-sans font-medium">Analyzing farm data...</div>;
 
   return (
     <div className="min-h-screen bg-cream px-4 md:px-8 py-8 max-w-4xl mx-auto">
-      <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 text-soil-700 hover:text-soil-900 mb-6 font-mono text-sm uppercase tracking-wider">
+      <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 text-soil-700 hover:text-soil-900 mb-6 font-sans font-medium text-sm tracking-wide">
         <ArrowLeft size={16} /> Back to Dashboard
       </button>
 
@@ -67,10 +76,34 @@ export const RecommendationsPage: React.FC = () => {
         </Card>
       ) : (
         <div className="flex flex-col gap-6">
-          {recommendations.map((rec, idx) => (
-            <Card key={rec.varietyId} className={idx === 0 ? "border-2 border-leaf-500 relative" : ""}>
-              {idx === 0 && (
-                <div className="absolute top-0 right-0 bg-leaf-500 text-white font-mono text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-[2px] uppercase tracking-wide">
+          {recommendations.map((rec, idx) => {
+            // Rotation Logic Heuristic
+            let isRotationMatch = false;
+            let rotationReason = "";
+            if (currentPlan) {
+              const currentCrop = currentPlan.cropName.toLowerCase();
+              const recCrop = rec.cropName.toLowerCase();
+              
+              if ((currentCrop.includes('wheat') || currentCrop.includes('rice') || currentCrop.includes('maize')) && 
+                  (recCrop.includes('gram') || recCrop.includes('pea') || recCrop.includes('soy') || recCrop.includes('lentil') || recCrop.includes('chana'))) {
+                  isRotationMatch = true;
+                  rotationReason = "Nitrogen Fixing (Legume after Cereal)";
+              } else if ((currentCrop.includes('gram') || currentCrop.includes('pea') || currentCrop.includes('soy')) && 
+                         (recCrop.includes('wheat') || recCrop.includes('rice') || recCrop.includes('maize'))) {
+                  isRotationMatch = true;
+                  rotationReason = "Nutrient Balanced (Cereal after Legume)";
+              }
+            }
+
+            return (
+            <Card key={rec.varietyId} className={isRotationMatch ? "border-2 border-soil-900 bg-wheat-50 relative" : (idx === 0 ? "border border-leaf-500 relative" : "")}>
+              {isRotationMatch && (
+                <div className="absolute top-0 right-0 bg-soil-900 text-cream font-sans font-medium text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-[2px] uppercase tracking-wide">
+                  Optimal Rotation
+                </div>
+              )}
+              {!isRotationMatch && idx === 0 && (
+                <div className="absolute top-0 right-0 bg-leaf-500 text-white font-sans font-medium text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-[2px] uppercase tracking-wide">
                   Top Match
                 </div>
               )}
@@ -79,7 +112,7 @@ export const RecommendationsPage: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-3 mb-1">
                     <h2 className="text-2xl font-heading text-soil-900">{rec.cropName}</h2>
-                    <span className="bg-soil-200 text-soil-800 font-mono text-xs px-2 py-0.5 rounded">
+                    <span className="bg-soil-200 text-soil-800 font-sans font-medium text-xs px-2 py-0.5 rounded">
                       Variety: {rec.varietyName}
                     </span>
                   </div>
@@ -90,7 +123,7 @@ export const RecommendationsPage: React.FC = () => {
                         style={{ width: `${rec.suitabilityScore}%` }}
                       ></div>
                     </div>
-                    <span className="font-mono text-sm font-bold text-soil-900">
+                    <span className="font-sans font-medium text-sm font-bold text-soil-900">
                       {rec.suitabilityScore}/100 Score
                     </span>
                   </div>
@@ -108,15 +141,24 @@ export const RecommendationsPage: React.FC = () => {
                         </span>
                       </div>
                     ))}
+                    {isRotationMatch && (
+                      <div className="flex items-start gap-2 text-sm font-body mt-2 p-2 bg-wheat-100 border border-soil-200">
+                        <Sprout size={16} className="text-soil-900 mt-0.5 shrink-0" />
+                        <span className="text-soil-900 font-bold">
+                          Rotation Benefit: {rotationReason}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
                 <div className="w-full md:w-auto mt-4 md:mt-0">
-                  <Button className="w-full md:w-auto" onClick={() => setSelectedCrop(rec)}>Select Crop</Button>
+                  <Button className="w-full md:w-auto" variant={isRotationMatch ? "primary" : "outline"} onClick={() => setSelectedCrop(rec)}>Select Crop</Button>
                 </div>
               </div>
             </Card>
-          ))}
+            );
+          })}
         </div>
       )}
 
@@ -130,7 +172,7 @@ export const RecommendationsPage: React.FC = () => {
             </p>
             
             <div className="mb-6">
-              <label className="block text-sm font-mono text-soil-700 uppercase mb-2">Sowing Date</label>
+              <label className="block text-sm font-sans font-medium text-soil-700 uppercase mb-2">Sowing Date</label>
               <div className="relative">
                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-soil-400" size={18} />
                 <input

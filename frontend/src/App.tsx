@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'motion/react';
 import { LandingPage } from './pages/LandingPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { LoginPage } from './pages/LoginPage';
@@ -8,8 +9,22 @@ import { CalculatorPage } from './pages/CalculatorPage';
 import { RecommendationsPage } from './pages/RecommendationsPage';
 import TracePage from './pages/TracePage';
 import DiseaseDetectionPage from './pages/DiseaseDetectionPage';
+import { FeaturesPage } from './pages/FeaturesPage';
+import { HowItWorksPage } from './pages/HowItWorksPage';
+import { YieldPredictionPage } from './pages/YieldPredictionPage';
+import { FieldJournalPage } from './pages/FieldJournalPage';
+import { NetRealizationPage } from './pages/NetRealizationPage';
+import { DiseaseDetectionInfoPage } from './pages/DiseaseDetectionInfoPage';
+import { BlockchainTraceabilityPage } from './pages/BlockchainTraceabilityPage';
+import { SoilReportOCRPage } from './pages/SoilReportOCRPage';
+import { MandiPricesPage } from './pages/MandiPricesPage';
+import { FarmersGuidePage } from './pages/FarmersGuidePage';
+import { ApiDocumentationPage } from './pages/ApiDocumentationPage';
+import { CommunityForumPage } from './pages/CommunityForumPage';
+import { SupportCenterPage } from './pages/SupportCenterPage';
 import { Navbar } from './components/ui/Navbar';
-
+import { GlobalChatWidget } from './components/ui/GlobalChatWidget';
+import { LanguageSelector } from './components/ui/LanguageSelector';
 import { Footer } from './components/ui/Footer';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -20,26 +35,81 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-function App() {
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  
   return (
-    <BrowserRouter>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+        <Route path="/onboarding/farm" element={<ProtectedRoute><FarmOnboardingPage /></ProtectedRoute>} />
+        <Route path="/calculator" element={<ProtectedRoute><CalculatorPage /></ProtectedRoute>} />
+        <Route path="/net-realization" element={<ProtectedRoute><NetRealizationPage /></ProtectedRoute>} />
+        <Route path="/recommendations" element={<ProtectedRoute><RecommendationsPage /></ProtectedRoute>} />
+        <Route path="/disease-detection" element={<ProtectedRoute><DiseaseDetectionPage /></ProtectedRoute>} />
+        <Route path="/soil-ocr" element={<ProtectedRoute><SoilReportOCRPage /></ProtectedRoute>} />
+        <Route path="/journal" element={<ProtectedRoute><FieldJournalPage /></ProtectedRoute>} />
+        <Route path="/trace/:qrCode" element={<TracePage />} />
+        <Route path="/features" element={<FeaturesPage />} />
+        <Route path="/how-it-works" element={<HowItWorksPage />} />
+        
+        {/* Footer Pages */}
+        <Route path="/yield-prediction" element={<YieldPredictionPage />} />
+        <Route path="/disease-detection-info" element={<DiseaseDetectionInfoPage />} />
+        <Route path="/traceability" element={<BlockchainTraceabilityPage />} />
+        <Route path="/mandi-prices" element={<MandiPricesPage />} />
+        <Route path="/farmers-guide" element={<FarmersGuidePage />} />
+        <Route path="/api-docs" element={<ApiDocumentationPage />} />
+        <Route path="/community" element={<CommunityForumPage />} />
+        <Route path="/support" element={<SupportCenterPage />} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
+import { DashboardLayout } from './components/dashboard/DashboardLayout';
+
+const AppLayout = () => {
+  const location = useLocation();
+  const isAuthPage = ['/login', '/signup'].includes(location.pathname);
+  const isDashboardRoute = ['/dashboard', '/tasks', '/calendar', '/analytics', '/team'].includes(location.pathname);
+
+  if (isDashboardRoute) {
+    return (
+      <DashboardLayout>
+        <div className="fixed bottom-6 left-6 z-50">
+          <LanguageSelector />
+        </div>
+        <GlobalChatWidget />
+        <AnimatedRoutes />
+      </DashboardLayout>
+    );
+  }
+
+  return (
+    <>
         <Navbar />
-        <div className="pt-24 min-h-screen flex flex-col">
+        <div className="fixed bottom-6 left-6 z-50">
+          <LanguageSelector />
+        </div>
+        <GlobalChatWidget />
+        <div className={`${isAuthPage ? '' : 'pt-24'} min-h-screen flex flex-col`}>
           <div className="flex-1">
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-              <Route path="/onboarding/farm" element={<ProtectedRoute><FarmOnboardingPage /></ProtectedRoute>} />
-              <Route path="/calculator" element={<ProtectedRoute><CalculatorPage /></ProtectedRoute>} />
-              <Route path="/recommendations" element={<ProtectedRoute><RecommendationsPage /></ProtectedRoute>} />
-              <Route path="/disease-detection" element={<ProtectedRoute><DiseaseDetectionPage /></ProtectedRoute>} />
-              <Route path="/trace/:qrCode" element={<TracePage />} />
-            </Routes>
+            <AnimatedRoutes />
           </div>
           <Footer />
         </div>
+    </>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppLayout />
     </BrowserRouter>
   );
 }

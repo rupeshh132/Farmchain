@@ -27,7 +27,7 @@ export const ProfitCalculator: React.FC = () => {
         {/* Text Side - Typographic Focus */}
         <div className="flex-1 text-center lg:text-left w-full">
           <div className="mb-4 md:mb-6 inline-block border-b border-soil-900 pb-2">
-            <span className="text-soil-900 font-mono text-sm uppercase tracking-[0.2em] font-bold">Projected Impact</span>
+            <span className="text-soil-900 font-sans font-medium text-sm uppercase tracking-[0.2em] font-bold">Projected Impact</span>
           </div>
           
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-heading text-soil-900 mb-6 md:mb-8 font-bold leading-[1.1] tracking-tight">
@@ -80,7 +80,7 @@ export const ProfitCalculator: React.FC = () => {
             whileInView={{ rotateY: 0, opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="bg-[#F4F1E1] border border-soil-300 shadow-[20px_20px_60px_rgba(0,0,0,0.05),-1px_-1px_0_rgba(255,255,255,0.5)] p-10 relative"
+            className="bg-[#F4F1E1] border border-soil-300 shadow-sm p-10 relative"
             style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.04%22/%3E%3C/svg%3E")' }}
           >
             {/* Top decorative lines to mimic a physical invoice/ledger */}
@@ -89,13 +89,13 @@ export const ProfitCalculator: React.FC = () => {
               <div className="w-full h-0.5 bg-soil-800" />
             </div>
             
-            <h3 className="text-3xl font-heading text-soil-900 mb-10 font-bold uppercase tracking-widest text-center">
+            <h3 className="text-3xl font-heading text-soil-900 mb-10 font-bold tracking-wide text-center">
               Profit Estimate
             </h3>
             
             <div className="mb-12">
               <div className="flex justify-between items-end mb-4 border-b border-soil-300 border-dashed pb-2">
-                <label className="text-soil-800 font-mono text-sm uppercase tracking-wider font-bold">Land Size</label>
+                <label className="text-soil-800 font-sans font-medium text-sm tracking-wide font-bold">Land Size</label>
                 <div className="text-3xl font-heading font-bold text-soil-900">
                   {acres} <span className="text-lg font-medium italic">Acres</span>
                 </div>
@@ -107,9 +107,9 @@ export const ProfitCalculator: React.FC = () => {
                 max="50" 
                 value={acres}
                 onChange={(e) => setAcres(parseInt(e.target.value))}
-                className="w-full h-2 bg-soil-300 appearance-none cursor-pointer accent-soil-900 hover:accent-primary transition-all rounded-none"
+                className="w-full h-2 bg-soil-300 appearance-none cursor-pointer accent-soil-900 hover:accent-primary transition-all rounded-2xl"
               />
-              <div className="flex justify-between text-xs font-mono text-soil-500 mt-3 uppercase tracking-widest">
+              <div className="flex justify-between text-xs font-sans font-medium text-soil-500 mt-3 tracking-wide">
                 <span>1 Acre</span>
                 <span>50 Acres</span>
               </div>
@@ -125,17 +125,17 @@ export const ProfitCalculator: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-6 border-b border-soil-300 pb-6 mb-6">
                 <div>
-                  <p className="text-xs font-mono text-soil-500 uppercase tracking-widest mb-2">Traditional</p>
+                  <p className="text-xs font-sans font-medium text-soil-500 tracking-wide mb-2">Traditional</p>
                   <p className="font-heading font-medium text-xl text-soil-700">₹{traditionalRevenue.toLocaleString('en-IN')}</p>
                 </div>
                 <div>
-                  <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2 font-bold">With FarmChain</p>
+                  <p className="text-xs font-sans font-medium text-primary tracking-wide mb-2 font-bold">With FarmChain</p>
                   <p className="font-heading font-bold text-xl text-primary">₹{aiRevenue.toLocaleString('en-IN')}</p>
                 </div>
               </div>
               
               <div className="relative">
-                <p className="text-sm font-mono uppercase tracking-widest text-soil-800 font-bold mb-2">Net Extra Profit / Yr</p>
+                <p className="text-sm font-sans font-medium tracking-wide text-soil-800 font-bold mb-2">Net Extra Profit / Yr</p>
                 
                 <div className="flex items-start gap-1">
                   <span className="text-3xl font-heading text-soil-900 mt-1">₹</span>
@@ -158,7 +158,7 @@ export const ProfitCalculator: React.FC = () => {
             </div>
             
             <div className="mt-8 pt-4 border-t border-soil-800 border-dashed text-center">
-              <span className="font-mono text-[10px] text-soil-400 uppercase tracking-[0.3em]">Ref: FC-{new Date().getFullYear()}-EST</span>
+              <span className="font-sans font-medium text-[10px] text-soil-400 uppercase tracking-[0.3em]">Ref: FC-{new Date().getFullYear()}-EST</span>
             </div>
           </motion.div>
         </div>

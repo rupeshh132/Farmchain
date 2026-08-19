@@ -1,0 +1,21 @@
+{
+  "name": "FarmChain - Smart Farming Ecosystem",
+  "short_name": "FarmChain",
+  "description": "Editorial Ledger for Precision Farming",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDFBF7",
+  "theme_color": "#3A2E22",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

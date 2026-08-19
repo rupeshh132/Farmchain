@@ -7,9 +7,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        heading: ['Fraunces', 'serif'],
-        body: ['"Public Sans"', 'sans-serif'],
-        mono: ['"IBM Plex Mono"', 'monospace'],
+        heading: ['Poppins', 'sans-serif'],
+        body: ['Poppins', 'sans-serif'],
+        mono: ['Inter', 'sans-serif'],
       },
       colors: {
         cream: 'var(--color-cream)',

@@ -84,7 +84,7 @@ export const TestimonialMarquee: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-heading font-bold text-cream">{t.name}</h4>
-                  <p className="text-sm text-primary-light font-mono">{t.crop} • {t.location}</p>
+                  <p className="text-sm text-primary-light font-sans font-medium">{t.crop} • {t.location}</p>
                 </div>
               </div>
             </div>

@@ -7,9 +7,10 @@ interface CardProps {
 }
 
 export const Card: React.FC<CardProps> = ({ children, className = '', noPadding = false }) => {
-  const paddingStyle = noPadding ? '' : 'p-6';
   return (
-    <div className={`bg-white border border-border rounded-[8px] shadow-sm ${paddingStyle} ${className}`} style={{ boxShadow: '0 1px 2px rgba(58,46,34,0.06)' }}>
+    <div 
+      className={`bg-white border border-[#E5E9E3] rounded-2xl shadow-none transition-transform hover:-translate-y-1 duration-200 ${noPadding ? '' : 'p-6 md:p-8'} ${className}`}
+    >
       {children}
     </div>
   );

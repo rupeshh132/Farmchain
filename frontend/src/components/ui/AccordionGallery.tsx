@@ -217,15 +217,15 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
             aria-label={item.label}
           >
             <span className="ag-panel__frame">
-              <span className="ag-panel__media" ref={el => (mediaRefs.current[i] = el)}>
+              <span className="ag-panel__media" ref={el => { mediaRefs.current[i] = el; }}>
                 <img src={item.image} alt={item.alt || item.label || ''} draggable="false" />
               </span>
               <span className="ag-panel__overlay" aria-hidden="true" />
             </span>
             {showLabels && (
               <span className="ag-panel__label" aria-hidden="true">
-                <span className="ag-panel__bar" ref={el => (barRefs.current[i] = el)} />
-                <div className="ag-panel__text flex flex-col justify-end text-left" ref={el => (textRefs.current[i] = el)}>
+                <span className="ag-panel__bar" ref={el => { barRefs.current[i] = el; }} />
+                <div className="ag-panel__text flex flex-col justify-end text-left" ref={el => { textRefs.current[i] = el; }}>
                   <div className="font-heading font-bold text-3xl">{item.label}</div>
                   {item.description && (
                     <div className="font-body text-sm max-w-sm mt-1 leading-relaxed opacity-90 whitespace-normal">

@@ -1,27 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500&display=swap');
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
 @layer base {
   :root {
-    --color-cream: #F7F3EA;
-    --color-soil-900: #3A2E22;
-    --color-soil-700: #5C4A38;
-    --color-leaf-700: #3F5C3A;
-    --color-leaf-500: #6B8C5F;
-    --color-wheat-400: #D9A441;
+    --color-cream: #F4F6F3; /* Light BG */
+    --color-soil-900: #0B2E1E; /* Primary Dark */
+    --color-soil-700: #14251B; /* Dark Text */
+    --color-leaf-700: #C6F135; /* Accent Lime */
+    --color-leaf-500: #B5E022; /* Hover Lime */
+    --color-wheat-400: #E5E9E3; /* Subtle Border */
     --color-terracotta-500: #C1613C;
     --color-sky-300: #A8C5D6;
-    --color-border: #E3DACB;
+    --color-border: #E5E9E3;
   }
 
   body {
-    @apply bg-cream text-soil-900 font-body antialiased;
+    @apply bg-cream text-soil-900 font-body antialiased selection:bg-soil-900 selection:text-cream;
     line-height: 1.6;
+    /* Paper Noise Texture Overlay */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+    background-attachment: fixed;
   }
 
+  /* Prevent text selection on standard UI elements to feel like a native app */
+  h1, h2, h3, h4, h5, h6, button, a, label, .icon-btn {
+    @apply select-none;
+  }
+  
+  /* Allow selection in content areas explicitly if needed, but headers are usually unselectable */
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading tracking-tight;
     line-height: 1.2;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  * {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
 }
 

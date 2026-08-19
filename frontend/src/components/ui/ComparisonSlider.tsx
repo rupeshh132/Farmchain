@@ -63,7 +63,7 @@ export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({
           parallax={30}
           fillScale={1.5}
         />
-        <p className="text-base sm:text-xl text-soil-700 font-body max-w-2xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-xl text-white/80 font-body max-w-2xl mx-auto leading-relaxed">
           Drag the slider to see how FarmChain's precision AI reveals the hidden potential in your fields.
         </p>
       </div>
@@ -111,7 +111,7 @@ export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({
 
         {/* Slider Handle */}
         <div 
-          className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-[0_0_10px_rgba(0,0,0,0.5)] z-10"
+          className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-sm z-10"
           style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
         >
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center transition-transform group-hover:scale-110 text-primary">
