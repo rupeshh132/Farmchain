@@ -10,7 +10,7 @@ export const Navbar: React.FC = () => {
   const token = localStorage.getItem('token');
   const { t } = useTranslation();
   
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
   useEffect(() => {
@@ -26,9 +26,11 @@ export const Navbar: React.FC = () => {
     };
   }, []);
 
-  // Close menu when route changes
+  // Close menu when route changes on mobile
   useEffect(() => {
-    setIsOpen(false);
+    if (window.innerWidth < 768) {
+      setIsOpen(false);
+    }
   }, [location.pathname]);
 
   const handleLogout = () => {

@@ -5,6 +5,8 @@ import { DashboardPage } from './pages/DashboardPage';
 import { TasksPage } from './pages/dashboard/TasksPage';
 import { CalendarPage } from './pages/dashboard/CalendarPage';
 import { AnalyticsPage } from './pages/dashboard/AnalyticsPage';
+import { SettingsPage } from './pages/dashboard/SettingsPage';
+import { HelpPage } from './pages/dashboard/HelpPage';
 import { LoginPage } from './pages/LoginPage';
 import { SignupPage } from './pages/SignupPage';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
@@ -53,6 +55,8 @@ const AnimatedRoutes = () => {
         <Route path="/tasks" element={<ProtectedRoute><TasksPage /></ProtectedRoute>} />
         <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
         <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
+        <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+        <Route path="/help" element={<ProtectedRoute><HelpPage /></ProtectedRoute>} />
         <Route path="/onboarding/farm" element={<ProtectedRoute><FarmOnboardingPage /></ProtectedRoute>} />
         <Route path="/calculator" element={<ProtectedRoute><CalculatorPage /></ProtectedRoute>} />
         <Route path="/net-realization" element={<ProtectedRoute><NetRealizationPage /></ProtectedRoute>} />
@@ -83,7 +87,7 @@ import { DashboardLayout } from './components/dashboard/DashboardLayout';
 const AppLayout = () => {
   const location = useLocation();
   const isAuthPage = ['/login', '/signup', '/forgot-password'].includes(location.pathname);
-  const isDashboardRoute = ['/dashboard', '/tasks', '/calendar', '/analytics', '/team'].includes(location.pathname);
+  const isDashboardRoute = ['/dashboard', '/tasks', '/calendar', '/analytics', '/mandi-prices', '/settings', '/help'].includes(location.pathname);
 
   if (isDashboardRoute) {
     return (

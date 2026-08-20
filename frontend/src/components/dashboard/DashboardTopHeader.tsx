@@ -71,21 +71,13 @@ export const DashboardTopHeader: React.FC = () => {
           <input
             type="text"
             placeholder="Search task"
-            className="w-full bg-white border border-soil-200 text-soil-900 text-sm rounded-2xl pl-11 pr-16 py-3 focus:outline-none focus:ring-2 focus:ring-soil-900/10 focus:border-soil-400 transition-all font-body placeholder-soil-400"
+            className="w-full bg-white border border-soil-200 text-soil-900 text-sm rounded-2xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-soil-900/10 focus:border-soil-400 transition-all font-body placeholder-soil-400"
           />
-          <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-            <kbd className="hidden sm:inline-block bg-cream border border-soil-200 rounded px-2 py-0.5 text-[10px] font-sans font-bold text-soil-500">
-              ⌘ F
-            </kbd>
-          </div>
         </div>
       </div>
 
       {/* Right side icons */}
       <div className="flex items-center gap-4">
-        <button className="w-10 h-10 rounded-full bg-white border border-soil-200 flex items-center justify-center text-soil-600 hover:text-soil-900 hover:border-soil-300 transition-all shadow-sm">
-          <Mail size={18} />
-        </button>
         <div className="w-10 h-10 rounded-full bg-white border border-soil-200 flex items-center justify-center shadow-sm">
            <NotificationBell />
         </div>

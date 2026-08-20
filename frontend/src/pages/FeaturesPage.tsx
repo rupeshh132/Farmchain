@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Brain, Sprout, ShieldCheck, Activity, BarChart3, CloudRain } from 'lucide-react';
@@ -46,15 +46,16 @@ const featuresList = [
 
 export const FeaturesPage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen bg-cream text-soil-900 selection:bg-soil-900 selection:text-cream">
       {/* Header Section */}
-      <section className="pt-32 pb-16 px-4 md:px-8 border-b border-soil-200">
+      <section className="pt-2 md:pt-4 pb-16 px-4 md:px-8 border-b border-soil-200">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}

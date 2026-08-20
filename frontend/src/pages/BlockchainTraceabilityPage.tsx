@@ -15,7 +15,7 @@ export const BlockchainTraceabilityPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-cream text-soil-900 selection:bg-soil-900 selection:text-cream pb-24">
       {/* Header Section */}
-      <section className="pt-40 md:pt-48 pb-16 px-4 md:px-8 border-b border-soil-200">
+      <section className="pt-2 md:pt-4 pb-16 px-4 md:px-8 border-b border-soil-200">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start gap-8">
             <div className="max-w-3xl">

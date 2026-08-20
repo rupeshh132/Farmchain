@@ -14,7 +14,7 @@ export const FarmersGuidePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-cream text-soil-900 selection:bg-soil-900 selection:text-cream pb-24">
       {/* Header Section */}
-      <section className="pt-40 md:pt-48 pb-16 px-4 md:px-8 border-b border-soil-200">
+      <section className="pt-2 md:pt-4 pb-16 px-4 md:px-8 border-b border-soil-200">
         <div className="max-w-7xl mx-auto text-center">
           <span className="font-sans font-medium text-xs tracking-wide text-soil-500 mb-6 block">Resources / Farmer's Guide</span>
           <h1 className="font-heading font-bold text-5xl md:text-7xl leading-tight tracking-tight mb-6 text-soil-900">

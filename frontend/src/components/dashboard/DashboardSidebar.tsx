@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, CheckSquare, CalendarDays, BarChart3, Users, Settings, HelpCircle, LogOut } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, CalendarDays, BarChart3, Store, Settings, HelpCircle, LogOut } from 'lucide-react';
 import { useTranslation } from '../../i18n/LanguageContext';
 
 export const DashboardSidebar: React.FC = () => {
@@ -8,10 +8,10 @@ export const DashboardSidebar: React.FC = () => {
 
   const menuItems = [
     { icon: <LayoutDashboard size={18} />, label: 'Dashboard', path: '/dashboard', badge: null },
-    { icon: <CheckSquare size={18} />, label: 'Tasks', path: '/tasks', badge: '12+' },
+    { icon: <CheckSquare size={18} />, label: 'Tasks', path: '/tasks', badge: null },
     { icon: <CalendarDays size={18} />, label: 'Calendar', path: '/calendar', badge: null },
     { icon: <BarChart3 size={18} />, label: 'Analytics', path: '/analytics', badge: null },
-    { icon: <Users size={18} />, label: 'Team', path: '/team', badge: null },
+    { icon: <Store size={18} />, label: 'Mandi Prices', path: '/mandi-prices', badge: null },
   ];
 
   const generalItems = [
@@ -103,7 +103,7 @@ export const DashboardSidebar: React.FC = () => {
           
           <div className="relative z-10">
             <div className="bg-white/10 w-8 h-8 rounded-lg flex items-center justify-center mb-3">
-              <img src="/logo.png" className="w-5 h-5 invert brightness-200" alt="App" />
+              <img src="/logo.png" className="w-6 h-6 object-contain" alt="App" />
             </div>
             <h4 className="text-white font-heading text-base mb-1">Mobile App</h4>
             <p className="text-cream/50 text-[10px] font-body mb-4">Get FarmChain on the go.</p>
