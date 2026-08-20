@@ -130,7 +130,7 @@ export const GlobalChatWidget: React.FC = () => {
         initial={{ scale: 0 }}
         animate={{ scale: isOpen ? 0 : 1 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 p-4 rounded-full bg-[#C6F135] text-[#0B2E1E] shadow-xl hover:scale-105 transition-transform ${isOpen ? 'pointer-events-none' : ''}`}
+        className={`fixed bottom-24 right-6 md:bottom-8 md:right-8 z-50 p-4 rounded-full bg-[#C6F135] text-[#0B2E1E] shadow-xl hover:scale-105 transition-transform ${isOpen ? 'pointer-events-none' : ''}`}
       >
         <MessageSquareText size={28} />
       </motion.button>
@@ -143,7 +143,7 @@ export const GlobalChatWidget: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-[90vw] max-w-[400px] h-[80vh] max-h-[600px] flex flex-col bg-[#F4F6F3] rounded-2xl shadow-2xl overflow-hidden border border-[#E5E9E3]"
+            className="fixed bottom-24 right-6 md:bottom-8 md:right-8 z-50 w-[90vw] max-w-[400px] h-[75vh] max-h-[600px] flex flex-col bg-[#F4F6F3] rounded-2xl shadow-2xl overflow-hidden border border-[#E5E9E3]"
           >
             {/* Header */}
             <div className="bg-[#0B2E1E] px-4 py-3 flex items-center justify-between shrink-0">
