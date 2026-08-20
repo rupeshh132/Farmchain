@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @Configuration
@@ -28,10 +29,25 @@ public class FirebaseConfig {
                 InputStream serviceAccount;
                 if (firebaseAdminSdkJsonBase64 != null && !firebaseAdminSdkJsonBase64.trim().isEmpty()) {
                     log.info("Loading Firebase credentials from Base64 environment variable.");
+                    
+                    log.info("DEBUG: Raw env var length: {}", firebaseAdminSdkJsonBase64.length());
+                    
                     byte[] decodedBytes = Base64.getDecoder().decode(firebaseAdminSdkJsonBase64);
                     
                     // --- DEBUG LOGGING START ---
                     try {
+                        log.info("DEBUG: decodedBytes.length: {}", decodedBytes.length);
+                        String decodedString = new String(decodedBytes, StandardCharsets.UTF_8);
+                        int strLen = decodedString.length();
+                        
+                        String first50 = strLen > 50 ? decodedString.substring(0, 50).replace("\n", "[NEWLINE]") : decodedString.replace("\n", "[NEWLINE]");
+                        String last50 = strLen > 50 ? decodedString.substring(strLen - 50).replace("\n", "[NEWLINE]") : decodedString.replace("\n", "[NEWLINE]");
+                        
+                        log.info("DEBUG: Decoded string first 50 chars: [{}]", first50);
+                        log.info("DEBUG: Decoded string last 50 chars: [{}]", last50);
+                        log.info("DEBUG: Starts with '{' ? {}", decodedString.trim().startsWith("{"));
+                        log.info("DEBUG: Ends with '}' ? {}", decodedString.trim().endsWith("}"));
+                        
                         JsonNode jsonNode = new ObjectMapper().readTree(decodedBytes);
                         if (jsonNode.has("private_key") && !jsonNode.get("private_key").asText().isEmpty()) {
                             String privateKey = jsonNode.get("private_key").asText();
@@ -51,7 +67,7 @@ public class FirebaseConfig {
                             log.warn("DEBUG: private_key field missing or empty.");
                         }
                     } catch (Exception e) {
-                        log.error("DEBUG: Failed to parse JSON for debugging", e);
+                        log.error("DEBUG: Failed to parse JSON for debugging - Msg: {}", e.getMessage(), e);
                     }
                     // --- DEBUG LOGGING END ---
                     
