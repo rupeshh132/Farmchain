@@ -1,4 +1,5 @@
-const API_BASE = 'http://localhost:8080/api/v1/auth';
+import { API_BASE_URL } from './config';
+const API_BASE = `/auth`;
 
 export const login = async (data: any) => {
     const response = await fetch(`${API_BASE}/login`, {

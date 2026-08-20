@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Mic, Send, Bot, User, Volume2, X, MessageSquareText } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTranslation } from '../../i18n/LanguageContext';
+import { AI_API_URL } from '../../api/config';
 
 interface Message {
   id: string;
@@ -80,7 +81,7 @@ export const GlobalChatWidget: React.FC = () => {
         headers['Authorization'] = `Bearer ${token}`;
       }
 
-      const response = await fetch('http://localhost:8080/api/ai/chat', {
+      const response = await fetch(`${AI_API_URL}/chat`, {
         method: 'POST',
         headers,
         body: JSON.stringify({ messages: apiMessages }),
