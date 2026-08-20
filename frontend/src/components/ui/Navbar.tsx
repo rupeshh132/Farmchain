@@ -12,6 +12,13 @@ export const Navbar: React.FC = () => {
   
   const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const handleOnline = () => setIsOffline(false);
@@ -88,9 +95,9 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Horizontal Menu Items */}
           <AnimatePresence mode="popLayout">
-            {isOpen && (
+            {isOpen && !isMobile && (
               <motion.div
-                key="menu-items"
+                key="menu-items-desktop"
                 initial={{ opacity: 0, width: 0, filter: 'blur(10px)' }}
                 animate={{ opacity: 1, width: 'auto', filter: 'blur(0px)' }}
                 exit={{ opacity: 0, width: 0, filter: 'blur(10px)' }}
@@ -144,13 +151,13 @@ export const Navbar: React.FC = () => {
               className="w-11 h-11 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-full flex items-center justify-center transition-all shrink-0"
               aria-label="Toggle Menu"
             >
-            <motion.div
-              initial={false}
-              animate={{ rotate: isOpen ? 90 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              {isOpen ? <X size={20} strokeWidth={2.5} /> : <MoreVertical size={20} strokeWidth={2.5} />}
-            </motion.div>
+              <motion.div
+                initial={false}
+                animate={{ rotate: isOpen ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {isOpen ? <X size={20} strokeWidth={2.5} /> : <MoreVertical size={20} strokeWidth={2.5} />}
+              </motion.div>
             </motion.button>
           </div>
 
@@ -158,13 +165,14 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Vertical Dropdown */}
         <AnimatePresence>
-          {isOpen && (
+          {isOpen && isMobile && (
             <motion.div
+              key="menu-items-mobile"
               initial={{ opacity: 0, y: -10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-[calc(100%+0.5rem)] right-0 w-[240px] md:hidden flex flex-col bg-[#0B2E1E] border border-[#133D2A] rounded-2xl shadow-xl overflow-hidden pointer-events-auto origin-top-right z-50"
+              className="absolute top-[calc(100%+0.5rem)] right-0 w-[240px] flex flex-col bg-[#0B2E1E] border border-[#133D2A] rounded-2xl shadow-xl overflow-hidden pointer-events-auto origin-top-right z-50"
             >
               {isOffline && (
                 <div className="bg-red-500/20 text-red-400 px-4 py-3 border-b border-red-500/30 flex items-center gap-2">
