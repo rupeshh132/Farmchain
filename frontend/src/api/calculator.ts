@@ -1,5 +1,5 @@
 import { API_BASE_URL } from './config';
-const API_BASE = `/farms`;
+const API_BASE = `${API_BASE_URL}/farms`;
 
 export interface CalculatorRequirement {
     knowledgeType: string;

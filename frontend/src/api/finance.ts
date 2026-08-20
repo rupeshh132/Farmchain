@@ -1,5 +1,5 @@
 import { API_BASE_URL } from './config';
-const API_BASE = `/plans`;
+const API_BASE = `${API_BASE_URL}/plans`;
 
 export interface Expense {
     id: string;

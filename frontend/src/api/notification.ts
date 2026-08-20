@@ -1,5 +1,5 @@
 import { API_BASE_URL } from './config';
-const API_BASE = `/notifications`;
+const API_BASE = `${API_BASE_URL}/notifications`;
 
 export interface Notification {
     id: string;

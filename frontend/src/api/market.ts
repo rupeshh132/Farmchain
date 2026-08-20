@@ -1,5 +1,5 @@
 import { API_BASE_URL } from './config';
-const API_BASE = `/markets`;
+const API_BASE = `${API_BASE_URL}/markets`;
 
 export interface MarketPrice {
     marketName: string;
