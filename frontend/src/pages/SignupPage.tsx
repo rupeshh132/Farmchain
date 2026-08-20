@@ -93,7 +93,7 @@ export const SignupPage: React.FC = () => {
 
   return (
     <motion.div 
-      className="min-h-screen bg-cream flex flex-col md:flex-row overflow-hidden"
+      className="min-h-screen bg-cream flex flex-col md:flex-row overflow-y-auto"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
@@ -142,28 +142,28 @@ export const SignupPage: React.FC = () => {
           animate="show"
           exit="exit"
         >
-          <motion.div variants={itemVariants} className="flex items-center gap-3 mb-10 md:mb-12">
+          <motion.div variants={itemVariants} className="flex items-center gap-3 mb-8 md:mb-10">
             <img src="/logo.png" alt="FarmChain Logo" className="w-10 h-10 object-contain mix-blend-multiply" />
             <span className="font-heading text-2xl font-bold text-soil-900 tracking-tight">FarmChain</span>
           </motion.div>
           
           <motion.div variants={itemVariants}>
-            <h1 className="text-4xl md:text-5xl font-heading text-soil-900 mb-3 font-bold">Create Account</h1>
-            <p className="text-soil-600 font-body mb-10 text-lg">Join the modern agricultural network.</p>
+            <h1 className="text-3xl md:text-4xl font-heading text-soil-900 mb-2 font-bold">Create Account</h1>
+            <p className="text-soil-600 font-body mb-8 text-base">Join the modern agricultural network.</p>
           </motion.div>
           
           {error && (
             <motion.div 
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
-              className="mb-8 p-4 bg-red-50 text-red-700 text-sm rounded-xl border border-red-100 font-body"
+              className="mb-6 p-3 bg-red-50 text-red-700 text-sm rounded-xl border border-red-100 font-body"
             >
               {error}
             </motion.div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-10">
-            <motion.div variants={itemVariants} className="grid grid-cols-1 gap-10 sm:grid-cols-2">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <motion.div variants={itemVariants} className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <AuthInput
                 id="fullName"
                 name="fullName"
@@ -183,6 +183,8 @@ export const SignupPage: React.FC = () => {
               />
             </motion.div>
 
+
+
             <motion.div variants={itemVariants}>
               <AuthInput
                 id="email"
@@ -193,21 +195,6 @@ export const SignupPage: React.FC = () => {
                 onChange={handleChange}
                 required
               />
-            </motion.div>
-
-            <motion.div variants={itemVariants} className="relative">
-              <label className="absolute left-0 -top-5 text-xs text-soil-700 font-medium font-body pointer-events-none">
-                Role
-              </label>
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                className="w-full bg-transparent border-b-2 py-3 border-border focus:border-primary border-opacity-60 outline-none transition-colors duration-300 font-body text-soil-900 appearance-none"
-              >
-                <option value="FARMER">Farmer</option>
-                <option value="BUYER">Buyer</option>
-              </select>
             </motion.div>
 
             <motion.div variants={itemVariants}>
@@ -222,12 +209,12 @@ export const SignupPage: React.FC = () => {
               />
             </motion.div>
 
-            <motion.div variants={itemVariants} className="pt-4 space-y-4">
+            <motion.div variants={itemVariants} className="pt-2 space-y-3">
               <motion.button
                 type="submit"
                 disabled={loading || !isFormValid}
                 whileTap={isFormValid ? { scale: 0.98 } : {}}
-                className={`w-full py-4 rounded-2xl font-heading font-medium text-lg flex items-center justify-center transition-all duration-300
+                className={`w-full py-3.5 rounded-2xl font-heading font-medium text-base flex items-center justify-center transition-all duration-300
                   ${isFormValid 
                     ? 'bg-primary text-white shadow-lg shadow-primary/25 hover:bg-primary/90 hover:-translate-y-0.5' 
                     : 'bg-soil-200 text-soil-400 cursor-not-allowed'
@@ -236,7 +223,7 @@ export const SignupPage: React.FC = () => {
                 {loading ? <LeafLoader className="text-white" /> : 'Create Account with Email'}
               </motion.button>
               
-              <div className="relative flex items-center py-2">
+              <div className="relative flex items-center py-1">
                 <div className="flex-grow border-t border-soil-200"></div>
                 <span className="flex-shrink-0 mx-4 text-soil-400 font-body text-sm">or</span>
                 <div className="flex-grow border-t border-soil-200"></div>
@@ -246,9 +233,9 @@ export const SignupPage: React.FC = () => {
                 type="button"
                 onClick={handleGoogleSignup}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-4 rounded-2xl font-heading font-medium text-lg flex items-center justify-center gap-3 bg-white border border-soil-200 text-soil-800 hover:bg-soil-50 transition-all duration-300"
+                className="w-full py-3.5 rounded-2xl font-heading font-medium text-base flex items-center justify-center gap-3 bg-white border border-soil-200 text-soil-800 hover:bg-soil-50 transition-all duration-300"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                   <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                   <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
@@ -259,7 +246,7 @@ export const SignupPage: React.FC = () => {
             </motion.div>
           </form>
 
-          <motion.div variants={itemVariants} className="mt-12 text-center text-soil-600 font-body">
+          <motion.div variants={itemVariants} className="mt-8 text-center text-soil-600 font-body text-sm">
             Already have an account?{' '}
             <Link to="/login" className="text-primary font-bold hover:underline transition-all">
               Log in
