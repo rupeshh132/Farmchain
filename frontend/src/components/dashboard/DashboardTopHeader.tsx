@@ -61,7 +61,7 @@ export const DashboardTopHeader: React.FC = () => {
   const displayPhoto = user?.profilePhotoUrl || `https://api.dicebear.com/7.x/notionists/svg?seed=${user?.fullName || 'User'}`;
 
   return (
-    <header className="h-20 flex items-center justify-between px-8 bg-cream border-b border-soil-100 shrink-0">
+    <header className="h-16 md:h-20 flex items-center justify-between px-4 md:px-8 bg-cream border-b border-soil-100 shrink-0">
       {/* Search */}
       <div className="flex-1 max-w-md">
         <div className="relative group">

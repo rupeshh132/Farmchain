@@ -21,7 +21,7 @@ export const DashboardSidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-64 bg-cream h-screen border-r border-soil-200 flex flex-col fixed left-0 top-0 overflow-y-auto">
+    <aside className="w-64 bg-cream h-screen border-r border-soil-200 hidden md:flex flex-col fixed left-0 top-0 overflow-y-auto z-40">
       {/* Logo */}
       <div className="p-6 flex items-center gap-3 cursor-pointer" onClick={() => window.location.href = '/'}>
         <img src="/logo.png" alt="FarmChain Logo" className="w-8 h-8 object-contain" />
