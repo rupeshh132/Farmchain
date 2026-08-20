@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { User, Map, Bell, Globe, Save } from 'lucide-react';
-import { Button } from '../../../components/ui/Button';
+import { Button } from '../../components/ui/Button';
 
 export const SettingsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('profile');

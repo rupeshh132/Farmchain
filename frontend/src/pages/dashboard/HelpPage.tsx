@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BookOpen, MessageSquare, HelpCircle, Users, Activity, Send } from 'lucide-react';
-import { Button } from '../../../components/ui/Button';
+import { Button } from '../../components/ui/Button';
 
 export const HelpPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('guides');
