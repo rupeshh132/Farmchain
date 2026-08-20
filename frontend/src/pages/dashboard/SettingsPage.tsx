@@ -107,10 +107,10 @@ export const SettingsPage: React.FC = () => {
                         <h4 className="font-bold text-soil-900 text-sm mb-1">{alert.title}</h4>
                         <p className="text-xs text-soil-600">{alert.desc}</p>
                       </div>
-                      <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                        <input type="checkbox" name="toggle" id={`toggle-${i}`} defaultChecked={i < 2} className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-soil-200 checked:right-0 checked:border-leaf-500 transition-all" style={{ right: i < 2 ? '0' : '1.25rem' }}/>
-                        <label htmlFor={`toggle-${i}`} className="toggle-label block overflow-hidden h-5 rounded-full bg-soil-200 cursor-pointer"></label>
-                      </div>
+                      <label htmlFor={`toggle-${i}`} className="flex items-center cursor-pointer relative">
+                        <input type="checkbox" id={`toggle-${i}`} className="sr-only peer" defaultChecked={i < 2} />
+                        <div className="w-11 h-6 bg-soil-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-soil-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-soil-900"></div>
+                      </label>
                     </div>
                   ))}
                 </div>

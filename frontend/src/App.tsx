@@ -92,7 +92,7 @@ const AppLayout = () => {
   if (isDashboardRoute) {
     return (
       <DashboardLayout>
-        <div className="fixed bottom-6 left-6 z-50">
+        <div className="fixed bottom-6 left-[18rem] z-50">
           <LanguageSelector />
         </div>
         <GlobalChatWidget />
