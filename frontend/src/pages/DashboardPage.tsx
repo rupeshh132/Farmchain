@@ -147,7 +147,7 @@ export const DashboardPage: React.FC = () => {
     <div className="flex flex-col gap-6 pb-20">
       
       {/* Header */}
-      <div className="flex justify-between items-end mb-2">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-2">
         <div>
           <h1 className="text-4xl font-heading font-bold text-soil-900 mb-1">{t('dashboard.greeting')}, Rupesh</h1>
           <p className="text-soil-500 font-sans text-sm">{t('dashboard.subtitle')}</p>
@@ -174,7 +174,7 @@ export const DashboardPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         
         {/* LEFT COLUMN (Spans 2) */}
-        <div className="col-span-2 flex flex-col gap-6">
+        <div className="lg:col-span-2 flex flex-col gap-6">
           {/* Economics Ledger */}
           <div className="bg-white rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-soil-100 flex flex-col min-h-[300px] overflow-hidden">
             <div className="p-6 border-b border-soil-100 flex justify-between items-center bg-soil-50">
@@ -185,7 +185,7 @@ export const DashboardPage: React.FC = () => {
             </div>
             
             <div className="flex-1 flex flex-col md:flex-row p-6 gap-6">
-               <div className="flex-1 border-r border-soil-100 pr-6 relative">
+               <div className="flex-1 border-b md:border-b-0 md:border-r border-soil-100 pb-6 md:pb-0 md:pr-6 relative">
                   <div className="flex items-center justify-between mb-4">
                      <span className="font-sans font-medium text-soil-900 uppercase text-[10px] tracking-wider font-bold">Mandi Price</span>
                   </div>
@@ -245,7 +245,7 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* MIDDLE COLUMN (Spans 1) */}
-        <div className="col-span-1 flex flex-col gap-6">
+        <div className="lg:col-span-1 flex flex-col gap-6">
           {/* Climate & Risk */}
           <div className="bg-white p-6 rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-soil-100">
             <h3 className="font-sans font-bold text-soil-900 mb-6 flex items-center gap-2"><CloudRain size={16}/> Weather Alerts</h3>
@@ -338,7 +338,7 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* RIGHT COLUMN (Spans 1) */}
-        <div className="col-span-1 flex flex-col gap-6">
+        <div className="lg:col-span-1 flex flex-col gap-6">
           {/* Active Tasks List */}
           <div className="bg-white p-6 rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-soil-100 flex-1 flex flex-col">
             <div className="flex justify-between items-center mb-6">
